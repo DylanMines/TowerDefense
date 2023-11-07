@@ -1,6 +1,6 @@
 components {
-  id: "enemy_control"
-  component: "/enemies/enemy_control.script"
+  id: "death"
+  component: "/enemies/death.particlefx"
   position {
     x: 0.0
     y: 0.0
@@ -14,8 +14,23 @@ components {
   }
 }
 components {
-  id: "death"
-  component: "/enemies/death.particlefx"
+  id: "enemy_health"
+  component: "/Gui/enemy_health.gui"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
+components {
+  id: "enemy_control"
+  component: "/enemies/enemy_control.script"
   position {
     x: 0.0
     y: 0.0

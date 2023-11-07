@@ -23,13 +23,13 @@ function init(self)
 	local function call_every_second(self, handle, time_elapsed)
 		self.counter = self.counter + 1
 		create_enemy(math.random(3))
-		if self.counter == 49 then
+		if self.counter == 449 then
 		  timer.cancel(handle) -- cancel timer after 10 calls
 		end
 	  end
 	  
 	self.counter = 0
-	timer.delay(0.85, true, call_every_second)
+	timer.delay(0.5, true, call_every_second)
 	create_enemy(1)
 	msg.post("@render:", "use_fixed_fit_projection")
 end
