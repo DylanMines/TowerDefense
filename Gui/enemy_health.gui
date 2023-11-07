@@ -7,8 +7,8 @@ background_color {
 }
 nodes {
   position {
-    x: 59.0
-    y: 40.0
+    x: 0.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -63,8 +63,8 @@ nodes {
 }
 nodes {
   position {
-    x: 59.0
-    y: 40.0
+    x: 0.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -117,6 +117,6 @@ nodes {
   visible: true
   material: ""
 }
-material: "/builtins/materials/gui.material"
-adjust_reference: ADJUST_REFERENCE_PARENT
+material: "/Gui/health.material"
+adjust_reference: ADJUST_REFERENCE_DISABLED
 max_nodes: 512
