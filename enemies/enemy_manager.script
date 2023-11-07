@@ -1,0 +1,80 @@
+local types = {};
+local function add_type(speed,size,color,health,damage)
+	table.insert(types, {speed = speed,size = size,color = color,health = health,damage = damage})
+end
+add_type(3.5, 1, vmath.vector4(1,1,1,1), 45, 30) --1: normal
+add_type(5,.75,vmath.vector4(0.9,1,0.1,1), 20, 5) --2: slightly faster
+add_type(2,1.35,vmath.vector4(0.15,0.15,1,1), 60, 42) --3: big boi
+
+local function create_enemy(type)
+	local new = factory.create("#factory")
+	local sprite_url = msg.url("main",new,"sprite")
+	local script_url = msg.url("main",new,"enemy_control")
+	local current_type = types[type]
+	go.set(sprite_url, "tint", current_type.color)
+	go.set(sprite_url, "playback_rate", current_type.speed)
+	go.set(script_url, "speed", current_type.speed)
+	go.set_scale(current_type.size,new)
+	go.set(script_url,"health",current_type.health)
+	go.set(script_url, "damage", current_type.damage)
+end
+
+function init(self)
+	local function call_every_second(self, handle, time_elapsed)
+		self.counter = self.counter + 1
+		create_enemy(math.random(3))
+		if self.counter == 49 then
+		  timer.cancel(handle) -- cancel timer after 10 calls
+		end
+	  end
+	  
+	self.counter = 0
+	timer.delay(0.85, true, call_every_second)
+	create_enemy(1)
+	msg.post("@render:", "use_fixed_fit_projection")
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function fixed_update(self, dt)
+	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
+	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
+	-- Physics section of game.project
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Learn more: https://defold.com/manuals/message-passing/
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here. The game object this script is attached to
+	-- must have acquired input focus:
+	--
+	--    msg.post(".", "acquire_input_focus")
+	--
+	-- All mapped input bindings will be received. Mouse and touch input will
+	-- be received regardless of where on the screen it happened.
+	-- Learn more: https://defold.com/manuals/input/
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end

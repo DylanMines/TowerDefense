@@ -1,0 +1,67 @@
+function setup_path(self)
+	self.start = nil
+	self.xcor,self.ycor,self.w,self.h = tilemap.get_bounds("#Path")
+	--print(self.xcor,self.ycor,self.w,self.h)
+	for x = self.xcor, self.w+self.xcor-1, 1 do
+		for y = self.ycor,self.h+self.ycor-1,1 do
+			local tile = tilemap.get_tile("#Path", "layer1", x, y)
+			if tile == 5 then self.start = vmath.vector3(x,y,0)
+			end
+		end
+	end
+end
+
+local positions = {vmath.vector3(0,1,0),vmath.vector3(1,0,0),vmath.vector3(0,-1,0),vmath.vector3(-1,0,0)}
+
+local function get_next_tile(self,pos,last,layer)
+	layer = layer or 1
+	local function get_out_bounds(tile_pos)
+		return(tile_pos.x < self.xcor or tile_pos.x > self.w+self.xcor-1 or tile_pos.y < self.ycor or tile_pos.y > self.h+self.ycor-1)
+	end
+
+	local function get_last(last)
+		return vmath.vector3(last.x,last.y,0)
+	end
+	-----
+	for i,v in ipairs(positions) do
+		local npos = vmath.vector3(pos.x+v.x, pos.y+v.y,0)
+		
+		if npos ~= get_last(last) and not get_out_bounds(npos) and
+		tilemap.get_tile("#Path", "layer"..layer, npos.x, npos.y) ~= 0 then
+			return npos,tilemap.get_tile("#Path", "layer"..layer, npos.x, npos.y)
+		end
+	end
+	return vmath.vector3(0,0,0)
+end
+
+local function from_world(val)
+	local pos = go.get_position()
+	val = vmath.vector3(val.x-pos.x,val.y-pos.y,0)
+	return (val+vmath.vector3(8*go.get_scale().x,8*go.get_scale().x,0))/(16*go.get_scale().x)
+end
+
+local function to_world(val)
+	local pos = go.get_position()
+	local world_transform = val*(16*go.get_scale().x)-vmath.vector3(8*go.get_scale().x,8*go.get_scale().x,0)
+	return vmath.vector3(world_transform.x+pos.x,world_transform.y+pos.y,0)
+end
+
+function init(self)
+	setup_path(self)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("get_start") then
+		msg.post(sender, "start_callback",
+		{pos = to_world(self.start),5,
+		next = to_world(get_next_tile(self,self.start, vmath.vector3(0,0,0), 1))})
+	elseif message_id == hash("get_next") then
+		local last = from_world(message.last)
+		local position = from_world(message.pos)
+		--print(position)
+		--print(message.layer)
+		local pos,tile = get_next_tile(self,position,last,message.layer)
+		--print(pos,tile)
+		msg.post(sender, "next_callback", {pos = to_world(pos),tile = tile})
+	end
+end
