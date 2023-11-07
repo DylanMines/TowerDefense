@@ -1,7 +1,7 @@
 local M = {}
 
 M.Bomb = {
-    ["ProjSprite"] = }
+    ["ProjSprite"] = 1}
 
 
 
