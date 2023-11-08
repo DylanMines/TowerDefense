@@ -1,10 +1,10 @@
 local types = {};
-local function add_type(speed,size,color,health,damage)
-	table.insert(types, {speed = speed,size = size,color = color,health = health,damage = damage})
+local function add_type(speed,size,health,damage)
+	table.insert(types, {speed = speed,size = size,color = vmath.vector4(1,1,1,1),health = health,damage = damage})
 end
-add_type(3.5, 1, vmath.vector4(1,1,1,1), 45, 30) --1: normal
-add_type(5,.75,vmath.vector4(0.9,1,0.1,1), 20, 5) --2: slightly faster
-add_type(2,1.35,vmath.vector4(0.15,0.15,1,1), 60, 42) --3: big boi
+add_type(3.5, 1, 45, 30) --1: normal
+add_type(5,.75, 20, 5) --2: slightly faster
+add_type(2,1.35, 60, 42) --3: big boi
 
 local function create_enemy(type)
 	local new = factory.create("#factory")
@@ -29,7 +29,7 @@ function init(self)
 	  end
 	  
 	self.counter = 0
-	timer.delay(0.5, true, call_every_second)
+	timer.delay(1.5, true, call_every_second)
 	create_enemy(1)
 	msg.post("@render:", "use_fixed_fit_projection")
 end

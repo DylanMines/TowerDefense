@@ -1,4 +1,4 @@
-go.property("health", 1)
+go.property("health", 20)
 go.property("damage", 1)
 go.property("speed", 1)
 function init(self)
@@ -9,10 +9,28 @@ function init(self)
 	self.visible = true
 	--self.layer = 1
 	msg.post("/map#path_manager", "get_start")
+	
+	--msg.post("/enemy_factory#enemy_health", "createnode", {id = go.get_id()})
 end
 
 local function get_rotation(pos)
 	return math.deg(math.atan2(pos.y - go.get_position().y, pos.x - go.get_position().x)-math.pi/2)
+end
+
+local function health_changed(self)
+	go.set("#sprite","tint.z",0.4)
+	go.set("#sprite","tint.y",0.4)
+	if self.health <= 0 then
+		Die()
+	else
+		go.cancel_animations("#sprite")
+		local easing = go.EASING_INOUTSINE
+		go.animate("#sprite", "tint.z", go.PLAYBACK_ONCE_FORWARD, 1, easing, 0.3)
+		go.animate("#sprite", "tint.y", go.PLAYBACK_ONCE_FORWARD, 1, easing, 0.3,0,function()
+			go.animate("#sprite", "tint.z", go.PLAYBACK_LOOP_PINGPONG, 0.4, easing, (self.health/self.maxHealth)*2)
+			go.animate("#sprite", "tint.y", go.PLAYBACK_LOOP_PINGPONG, 0.4, easing, (self.health/self.maxHealth)*2)
+		end)
+	end
 end
 
 local function move_char(self,pos,tile)
@@ -26,11 +44,11 @@ local function move_char(self,pos,tile)
 	--//--
 
 	--invisible blocks
-	local tint = go.get("#sprite","tint")
+	
 	if not self.visible then
-		go.set("#sprite","tint",vmath.vector4(tint.x,tint.y,tint.z,0)) 
+		go.set("#sprite","tint.w",0) 
 	else
-		go.set("#sprite","tint",vmath.vector4(tint.x,tint.y,tint.z,1)) 
+		go.set("#sprite","tint.w",1) 
 	end
 	if tile == 4 then 
 		self.visible = not self.visible
@@ -66,8 +84,11 @@ local function move_char(self,pos,tile)
 	--//--
 end
 
+
 function on_message(self, message_id, message, sender)
 	if message_id == hash("start_callback") then
+		self.maxHealth = self.health
+		self.tint = go.get("#sprite","tint")
 		go.set_position(message.pos)
 		self.last = message.pos
 		self.lastSpeed = self.speed
@@ -85,29 +106,30 @@ function Die()
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("click") then
+	if action_id == hash("click") and action.pressed then
+		print(self.health)
 		local position = go.get_position()
 		local dist = vmath.length(vmath.vector3(action.x,action.y,0)-position)
 		if dist < 40 then
-			self.health = self.health - 2
-			msg.post("#enemy_health", "health_changed",{health = self.health})
-			if self.health <= 0 then
-				Die()
-			end
+			self.health = self.health - 7
+			health_changed(self)
 		end
 
 	end
 end
 function final(self) 
-	Die()
+	--msg.post("/enemy_factory#enemy_health", "deletenode", {id = go.get_id()})
+	self.health = 0
+	health_changed(self)
 end
+
+--[[function update(self, dt)
+	msg.post("/enemy_factory#enemy_health", "updatenode",
+		{ id = go.get_id(), position = go.get_position(), hp = self.health/self.maxHealth,visible = self.visible})
+end]]
 
 function on_reload(self)
 	-- Add reload-handling code here
 	-- Learn more: https://defold.com/manuals/hot-reload/
 	-- Remove this function if not needed
-end
-
-function update(self)
-	
 end
