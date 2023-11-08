@@ -7,9 +7,10 @@ function init(self)
 	self.lastSpeed = self.speed
 	self.layer = 1
 	self.visible = true
+	self.posz = math.random(0,50)/50
 	--self.layer = 1
 	msg.post("/map#path_manager", "get_start")
-	
+	self.tint = vmath.vector4()
 	--msg.post("/enemy_factory#enemy_health", "createnode", {id = go.get_id()})
 end
 
@@ -18,23 +19,27 @@ local function get_rotation(pos)
 end
 
 local function health_changed(self)
-	go.set("#sprite","tint.z",0.4)
-	go.set("#sprite","tint.y",0.4)
+	local red = vmath.vector4()
+	go.cancel_animations("#sprite")
+	go.set("#sprite","tint.x",1)
+	go.set("#sprite","tint.z",self.tint.z-0.5)
+	go.set("#sprite","tint.y",self.tint.y-0.5)
 	if self.health <= 0 then
 		Die()
 	else
-		go.cancel_animations("#sprite")
 		local easing = go.EASING_INOUTSINE
-		go.animate("#sprite", "tint.z", go.PLAYBACK_ONCE_FORWARD, 1, easing, 0.3)
-		go.animate("#sprite", "tint.y", go.PLAYBACK_ONCE_FORWARD, 1, easing, 0.3,0,function()
-			go.animate("#sprite", "tint.z", go.PLAYBACK_LOOP_PINGPONG, 0.4, easing, (self.health/self.maxHealth)*2)
-			go.animate("#sprite", "tint.y", go.PLAYBACK_LOOP_PINGPONG, 0.4, easing, (self.health/self.maxHealth)*2)
+		go.animate("#sprite", "tint.x", go.PLAYBACK_ONCE_FORWARD, self.tint.x, easing, 0.3)
+		go.animate("#sprite", "tint.z", go.PLAYBACK_ONCE_FORWARD, self.tint.z, easing, 0.3)
+		go.animate("#sprite", "tint.y", go.PLAYBACK_ONCE_FORWARD, self.tint.y, easing, 0.3,0,function()
+			go.animate("#sprite", "tint.x", go.PLAYBACK_LOOP_PINGPONG, 1, easing,(self.health/self.maxHealth)*2)
+			go.animate("#sprite", "tint.z", go.PLAYBACK_LOOP_PINGPONG, self.tint.z-0.5, easing, (self.health/self.maxHealth)*2)
+			go.animate("#sprite", "tint.y", go.PLAYBACK_LOOP_PINGPONG, self.tint.y-0.5, easing, (self.health/self.maxHealth)*2)
 		end)
 	end
 end
 
 local function move_char(self,pos,tile)
-	pos = vmath.vector3(pos.x,pos.y,1)
+	pos = vmath.vector3(pos.x,pos.y,self.posz)
 	-- speed math
 	self.last = go.get_position()
 	local speed = self.speed

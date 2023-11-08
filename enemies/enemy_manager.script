@@ -1,10 +1,12 @@
 local types = {};
-local function add_type(speed,size,health,damage)
-	table.insert(types, {speed = speed,size = size,color = vmath.vector4(1,1,1,1),health = health,damage = damage})
+local function add_type(speed,size,health,damage,color)
+	color = color or vmath.vector4(1,1,1,1)
+	table.insert(types, {speed = speed,size = size,color = color,health = health,damage = damage})
 end
-add_type(3.5, 1, 45, 30) --1: normal
-add_type(5,.75, 20, 5) --2: slightly faster
-add_type(2,1.35, 60, 42) --3: big boi
+add_type(3.5, 1, 45, 30, vmath.vector4(1,1,1,1)) --1: normal
+add_type(5,.75, 20, 5, vmath.vector4(1,0.9,0.1,1)) --2: slightly faster
+add_type(2,1.35, 60, 42, vmath.vector4(0.1,0.1,0.1,1)) --3: big boi
+add_type(4,0.95, 40, 26, vmath.vector4(0.9,0.1,1,1)) --4: slightly smaller boi
 
 local function create_enemy(type)
 	local new = factory.create("#factory")
@@ -22,7 +24,7 @@ end
 function init(self)
 	local function call_every_second(self, handle, time_elapsed)
 		self.counter = self.counter + 1
-		create_enemy(math.random(3))
+		create_enemy(math.random(4))
 		if self.counter == 449 then
 		  timer.cancel(handle) -- cancel timer after 10 calls
 		end
