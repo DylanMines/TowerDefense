@@ -1,13 +1,14 @@
 go.property("health", 20)
 go.property("damage", 1)
 go.property("speed", 1)
+go.property("zpos",0)
+
 function init(self)
-	msg.post(".", "acquire_input_focus")
+	--msg.post(".", "acquire_input_focus")
 	self.last = vmath.vector3()
 	self.lastSpeed = self.speed
 	self.layer = 1
 	self.visible = true
-	self.posz = math.random(0,50)/50
 	--self.layer = 1
 	msg.post("/map#path_manager", "get_start")
 	self.tint = vmath.vector4()
@@ -25,7 +26,7 @@ local function health_changed(self)
 	go.set("#sprite","tint.z",self.tint.z-0.5)
 	go.set("#sprite","tint.y",self.tint.y-0.5)
 	if self.health <= 0 then
-		Die()
+		Die(self)
 	else
 		local easing = go.EASING_INOUTSINE
 		go.animate("#sprite", "tint.x", go.PLAYBACK_ONCE_FORWARD, self.tint.x, easing, 0.3)
@@ -39,7 +40,8 @@ local function health_changed(self)
 end
 
 local function move_char(self,pos,tile)
-	pos = vmath.vector3(pos.x,pos.y,self.posz)
+	pos = vmath.vector3(pos.x,pos.y,self.zpos+(0.5*(self.layer-1)))
+
 	-- speed math
 	self.last = go.get_position()
 	local speed = self.speed
@@ -104,15 +106,14 @@ function on_message(self, message_id, message, sender)
 	end
 end
 
-function Die()
+function Die(self)
 	go.delete()
 	particlefx.play("#death")
-	particlefx.set_constant("#death", "emitter", "tint", go.get("#sprite","tint"))
+	particlefx.set_constant("#death", "emitter", "tint", self.tint)
 end
 
 function on_input(self, action_id, action)
 	if action_id == hash("click") and action.pressed then
-		print(self.health)
 		local position = go.get_position()
 		local dist = vmath.length(vmath.vector3(action.x,action.y,0)-position)
 		if dist < 40 then
