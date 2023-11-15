@@ -1,15 +1,7 @@
 
-
-function final(self)
-	-- Add finalization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
 function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	local fps = (math.floor((10/dt)+0.5))/10
+	label.set_text("/debug_fps#counter", "FPS: "..fps)
 end
 
 function fixed_update(self, dt)

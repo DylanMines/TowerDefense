@@ -16,5 +16,9 @@ input_method = HiddenInputField
 title = Tower
 
 [sprite]
-max_count = 500
+max_count = 1024
+
+[particle_fx]
+max_count = 1024
+max_emitter_count = 1024
 

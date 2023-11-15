@@ -1,4 +1,4 @@
-function setup_path(self)
+local function setup_path(self)
 	self.start = nil
 	self.xcor,self.ycor,self.w,self.h = tilemap.get_bounds("#Path")
 	--print(self.xcor,self.ycor,self.w,self.h)
@@ -53,7 +53,7 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("get_start") then
 		msg.post(sender, "start_callback",
-		{pos = to_world(self.start),5,
+		{id = message.id,pos = to_world(self.start),5,
 		next = to_world(get_next_tile(self,self.start, vmath.vector3(0,0,0), 1))})
 	elseif message_id == hash("get_next") then
 		local last = from_world(message.last)
@@ -62,6 +62,6 @@ function on_message(self, message_id, message, sender)
 		--print(message.layer)
 		local pos,tile = get_next_tile(self,position,last,message.layer)
 		--print(pos,tile)
-		msg.post(sender, "next_callback", {pos = to_world(pos),tile = tile})
+		msg.post(sender, "next_callback", {pos = to_world(pos),tile = tile,id = message.id})
 	end
 end

@@ -14,7 +14,7 @@ components {
   }
   properties {
     id: "range"
-    value: "123.0"
+    value: "120.0"
     type: PROPERTY_TYPE_NUMBER
   }
 }

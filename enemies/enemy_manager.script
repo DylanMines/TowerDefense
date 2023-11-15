@@ -1,4 +1,5 @@
 local types = {};
+local enemies = {};
 local function add_type(speed,size,health,damage,color)
 	color = color or vmath.vector4(1,1,1,1)
 	table.insert(types, {speed = speed,size = size,color = color,health = health,damage = damage})
@@ -12,78 +13,194 @@ add_type(1,2, 150, 100, vmath.vector4(1,0.5,0.1,1))
 
 local currentz = 0.24
 
-local function create_enemy(type)
-	local new = factory.create("#factory")
-	local sprite_url = msg.url("main",new,"sprite")
-	local script_url = msg.url("main",new,"enemy_control")
-	local current_type = types[type]
-	go.set(sprite_url, "tint", current_type.color)
-	go.set(sprite_url, "playback_rate", current_type.speed)
-	go.set(script_url, "speed", current_type.speed)
-	go.set_scale(current_type.size,new)
-	go.set(script_url,"health",current_type.health)
-	go.set(script_url, "damage", current_type.damage)
-	go.set(script_url, "zpos", currentz)
+local Enemy = {health = 1, damage = 1, zpos = 0, speed = 1,last = vmath.vector3(),layer = 1,visible = true, tint = vmath.vector4()}
+function Enemy:new(o,type)
+	o = o or {}   -- create object
+	setmetatable(o, self)
+	self.__index = self
+
 	if currentz <= 0 then currentz = 0.24 end 
 	currentz = currentz-0.01
+
+	--class is ready
+	o.go = factory.create("#factory")
+	--print(self.go)
+	local current_type = types[type]
+	local sprite_url = msg.url("main",o.go,"sprite")
+	go.set(sprite_url, "tint", current_type.color)
+	go.set(sprite_url, "playback_rate", current_type.speed)
+	go.set_scale(current_type.size,o.go)
+
+	o.zpos = currentz
+	o.last = vmath.vector3()
+	o.damage = current_type.damage
+	o.health = current_type.health
+	o.maxHealth = o.health
+	o.speed = current_type.speed
+	o.lastSpeed = o.speed
+	o.layer = 1
+	o.visible = true
+	o.tint = current_type.color
+	msg.post("/map#path_manager", "get_start",{id = o.go})
+	return o
+end
+
+function Enemy:get_rotation(pos)
+	return math.deg(math.atan2(pos.y - go.get_position(self.go).y, pos.x - go.get_position(self.go).x)-math.pi/2)
+end
+
+function Enemy:get_position()
+	return go.get_position(self.go)
+end
+
+function Enemy:move(pos,tile)
+	pos = vmath.vector3(pos.x,pos.y,self.zpos+(0.5*(self.layer-1)))
+
+	-- speed math
+	self.last = go.get_position(self.go)
+	local speed = self.speed
+	if tile == 7 then speed = speed * 1.5
+	elseif tile == 8 then speed = speed * 0.5 end
+	local sprite_url = msg.url("main",self.go,"sprite")
+	go.set(sprite_url, "playback_rate", self.lastSpeed)
+	--//--
+
+	--invisible blocks
 	
+	if not self.visible then
+		go.set(sprite_url,"tint.w",0) 
+	else
+		go.set(sprite_url,"tint.w",1) 
+	end
+	if tile == 4 then 
+		self.visible = not self.visible
+	end
+	--//--
+	-- angle math
+	local char_angle = go.get(self.go,"euler.z")
+	local angle = self:get_rotation(pos)
+	if tile == 5 then go.set(self.go,"euler.z",angle)
+	elseif angle ~= char_angle then
+		if math.abs(angle-char_angle) == 270 then 
+			go.set(self.go,"euler.z",char_angle+360)
+		end
+		go.animate(self.go, "euler.z", go.PLAYBACK_ONCE_FORWARD, angle, go.EASING_LINEAR, 1/self.lastSpeed)
+	end
+	--//--
+
+	-- layer stuff
+	if tile == 2 then
+		self.layer = self.layer + 1
+	elseif tile == 3 then
+		self.layer = self.layer - 1
+	end
+	--print(self.layer)
+	--//--
+
+	-- animate!
+	go.animate(self.go, "position", go.PLAYBACK_ONCE_FORWARD, pos, go.EASING_LINEAR, 1/self.lastSpeed, 0, function()
+		if tile == 6 then self:final() return end
+		self.lastSpeed = speed
+		msg.post("/map#path_manager", "get_next",{pos = go.get_position(self.go),last = self.last,layer = self.layer,id = self.go})
+	end)
+end
+
+function Enemy:take_damage(dmg)
+	self.health = self.health - dmg
+	self:health_changed()
+end
+
+function Enemy:health_changed()
+	local red = vmath.vector4()
+	local sprite_url = msg.url("main",self.go,"sprite")
+	local particle_url = msg.url("main",self.go,"death")
+	go.cancel_animations(sprite_url)
+	go.set(sprite_url,"tint.x",1)
+	go.set(sprite_url,"tint.z",self.tint.z-0.65)
+	go.set(sprite_url,"tint.y",self.tint.y-0.65)
+	if self.health <= 0 then
+		enemies[self.go] = nil
+		go.delete(self.go)
+		particlefx.play(particle_url)
+		particlefx.set_constant(particle_url, "emitter", "tint", self.tint)
+	else
+		local easing = go.EASING_INOUTSINE
+		local function animate_tint(x,y,z,time, pingpong ,callback)
+			local playback = pingpong and go.PLAYBACK_LOOP_PINGPONG or go.PLAYBACK_ONCE_FORWARD
+			go.animate(sprite_url, "tint.x", playback, x, easing, time)
+			go.animate(sprite_url, "tint.z", playback, z, easing, time)
+			if callback then 
+				go.animate(sprite_url, "tint.y", playback, y, easing, time,0,callback)
+			else 
+				go.animate(sprite_url, "tint.y", playback, y, easing, time,0)
+			end
+		end
+		animate_tint(self.tint.x, self.tint.y, self.tint.z, 0.3, false, function ()
+			animate_tint(1, self.tint.y-0.5, self.tint.z-0.5, (self.health/self.maxHealth)*2, true)
+		end)
+	end
+end
+
+function Enemy:final()
+	self.health = 0
+	self:health_changed()
+end
+
+function Enemy:get_id()
+	return self.go
+end
+
+function Enemy:start(pos,next)
+	go.set_position(pos,self.go)
+	self.last = pos
+	self.lastSpeed = self.speed
+	self:move(next, 5)
+	msg.post("/map#path_manager", "get_next",{pos = go.get_position(self.go),last = pos,layer = self.layer,id = self.go})
 end
 
 function init(self)
+	msg.post(".","acquire_input_focus")
+	msg.post("@render:", "use_fixed_fit_projection")
 	local function call_every_second(self, handle, time_elapsed)
 		self.counter = self.counter + 1
-		create_enemy(math.random(6))
-		if self.counter == 449 then
+		local newEnemy = Enemy:new(nil,math.random(6))
+		enemies[newEnemy:get_id()] = newEnemy
+		--print(enemies[newEnemy:get_id()])
+		if self.counter == 511 then
 		  timer.cancel(handle) -- cancel timer after 10 calls
 		end
 	  end
-	  
 	self.counter = 0
 	timer.delay(1, true, call_every_second)
-	msg.post("@render:", "use_fixed_fit_projection")
-end
-
-function final(self)
-	-- Add finalization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
-function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
-function fixed_update(self, dt)
-	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
-	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
-	-- Physics section of game.project
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
 end
 
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Learn more: https://defold.com/manuals/message-passing/
-	-- Remove this function if not needed
+	if message_id == hash("start_callback") then --TODO: figure out which enemy to mov
+		--print(message.id)
+		local enemy = enemies[message.id]
+		--print("starting at "..message.pos)
+		enemy:start(message.pos,message.next)
+	elseif message_id == hash("next_callback") then
+		local enemy = enemies[message.id]
+		--print(message.id)
+		--print("going to next at "..message.pos)
+		enemy:move(message.pos,message.tile)
+		--move_char(self,message.pos,message.tile)
+	elseif message_id == hash("take_damage") then
+		local enemy = enemies[message.id]
+		enemy:take_damage(message.damage)
+	end
 end
 
-function on_input(self, action_id, action)
-	-- Add input-handling code here. The game object this script is attached to
-	-- must have acquired input focus:
-	--
-	--    msg.post(".", "acquire_input_focus")
-	--
-	-- All mapped input bindings will be received. Mouse and touch input will
-	-- be received regardless of where on the screen it happened.
-	-- Learn more: https://defold.com/manuals/input/
-	-- Remove this function if not needed
-end
-
-function on_reload(self)
-	-- Add reload-handling code here
-	-- Learn more: https://defold.com/manuals/hot-reload/
-	-- Remove this function if not needed
+function on_input(self,action_id,action)
+	if action_id == hash("click") and action.pressed then
+		for _,v in pairs(enemies) do
+			if v == nil then return end
+			local position = v:get_position()
+			local dist = vmath.length(vmath.vector3(action.x,action.y,0)-position)
+			if dist < 40 then
+				v:take_damage(7)
+			end
+		end
+	end
 end
