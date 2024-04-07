@@ -1,5 +1,9 @@
+
+
+local enemies = {}; --Enemy table
+
+--Setting up enemy types
 local types = {};
-local enemies = {};
 local function add_type(speed,size,health,damage,color)
 	color = color or vmath.vector4(1,1,1,1)
 	table.insert(types, {speed = speed,size = size,color = color,health = health,damage = damage})
@@ -10,11 +14,13 @@ add_type(2,1.35, 60, 42, vmath.vector4(0.1,0.1,0.1,1)) --3: big boi
 add_type(4,0.95, 40, 26, vmath.vector4(0.9,0.1,1,1)) --4: slightly smaller boi
 add_type(3,1.05, 50, 34, vmath.vector4(0.1,0.1,1,1))
 add_type(1,2, 150, 100, vmath.vector4(1,0.5,0.1,1)) 
+----
 
-local currentz = 0.24
+local currentz = 0.24 --variable used to make sure enemies dont clip
 
+--Enemy class--
 local Enemy = {health = 1, damage = 1, zpos = 0, speed = 1,last = vmath.vector3(),layer = 1,visible = true, tint = vmath.vector4()}
-function Enemy:new(o,type)
+function Enemy:new(o,type) --Constructor
 	o = o or {}   -- create object
 	setmetatable(o, self)
 	self.__index = self
@@ -45,22 +51,23 @@ function Enemy:new(o,type)
 	return o
 end
 
-function Enemy:get_rotation(pos)
+function Enemy:get_rotation(pos) --accessor function to get rotation
 	return math.deg(math.atan2(pos.y - go.get_position(self.go).y, pos.x - go.get_position(self.go).x)-math.pi/2)
 end
 
-function Enemy:get_position()
+function Enemy:get_position() -- accessor function to get position
 	return go.get_position(self.go)
 end
 
-function Enemy:move(pos,tile)
+function Enemy:move(pos,tile) --Move the enemy from current position to pos while doing the action of tile
 	pos = vmath.vector3(pos.x,pos.y,self.zpos+(0.5*(self.layer-1)))
-
+	print(tile)
+	print(self.lastSpeed)
 	-- speed math
 	self.last = go.get_position(self.go)
 	local speed = self.speed
-	if tile == 7 then speed = speed * 1.5
-	elseif tile == 8 then speed = speed * 0.5 end
+	if tile == 7 then speed = speed * 3
+	elseif tile == 8 then speed = speed * 0.125 end
 	local sprite_url = msg.url("main",self.go,"sprite")
 	go.set(sprite_url, "playback_rate", self.lastSpeed)
 	--//--
@@ -105,12 +112,12 @@ function Enemy:move(pos,tile)
 	end)
 end
 
-function Enemy:take_damage(dmg)
+function Enemy:take_damage(dmg) --Take damage
 	self.health = self.health - dmg
 	self:health_changed()
 end
 
-function Enemy:health_changed()
+function Enemy:health_changed() --Do the red flashing thingy (Not to be used outside of class but idk how to make private functions in lua)
 	local red = vmath.vector4()
 	local sprite_url = msg.url("main",self.go,"sprite")
 	local particle_url = msg.url("main",self.go,"death")
@@ -141,16 +148,16 @@ function Enemy:health_changed()
 	end
 end
 
-function Enemy:final()
+function Enemy:final() --Enemy died
 	self.health = 0
 	self:health_changed()
 end
 
-function Enemy:get_id()
+function Enemy:get_id() --Accessor function
 	return self.go
 end
 
-function Enemy:start(pos,next)
+function Enemy:start(pos,next) --Enemy just spawned
 	go.set_position(pos,self.go)
 	self.last = pos
 	self.lastSpeed = self.speed
@@ -158,19 +165,26 @@ function Enemy:start(pos,next)
 	msg.post("/map#path_manager", "get_next",{pos = go.get_position(self.go),last = pos,layer = self.layer,id = self.go})
 end
 
+--end enemy class--
+
+function SpawnEnemy(type)
+	local newEnemy = Enemy:new(nil,type)
+	enemies[newEnemy:get_id()] = newEnemy
+end
+
 function init(self)
 	msg.post(".","acquire_input_focus")
 	msg.post("@render:", "use_fixed_fit_projection")
 	local function call_every_second(self, handle, time_elapsed)
 		self.counter = self.counter + 1
-		local newEnemy = Enemy:new(nil,math.random(6))
-		enemies[newEnemy:get_id()] = newEnemy
+		SpawnEnemy(math.random(6))
 		--print(enemies[newEnemy:get_id()])
 		if self.counter == 511 then
 		  timer.cancel(handle) -- cancel timer after 10 calls
 		end
 	  end
 	self.counter = 0
+	--SpawnEnemy(1)
 	timer.delay(1, true, call_every_second)
 end
 

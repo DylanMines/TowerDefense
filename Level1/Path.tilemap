@@ -22,7 +22,7 @@ layers {
   cell {
     x: 15
     y: 3
-    tile: 7
+    tile: 0
     h_flip: 0
     v_flip: 0
     rotate90: 0
@@ -38,7 +38,7 @@ layers {
   cell {
     x: 17
     y: 3
-    tile: 7
+    tile: 0
     h_flip: 0
     v_flip: 0
     rotate90: 0
@@ -614,7 +614,7 @@ layers {
 }
 layers {
   id: "layer2"
-  z: 0.0
+  z: 0.1
   is_visible: 1
   cell {
     x: 15

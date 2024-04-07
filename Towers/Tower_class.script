@@ -3,12 +3,11 @@ go.property("type",2) --corresponds to the index of attacks.lua
 go.property("level", 1)
 go.property("aim", 1) --1: first, 2: last 3: close 4: strong
 --local tower_attacks = require("Towers.attacks")
-
+local types = require("Towers/types")
 local types = {
 	"Archer",
 	"Bomb"
 }
-
 function init(self)
 --	tower_attacks[types[self.type]].attack()
 end

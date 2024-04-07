@@ -1,4 +1,4 @@
-local function setup_path(self)
+local function setup_path(self) --Find the start tile.
 	self.start = nil
 	self.xcor,self.ycor,self.w,self.h = tilemap.get_bounds("#Path")
 	--print(self.xcor,self.ycor,self.w,self.h)
@@ -13,7 +13,7 @@ end
 
 local positions = {vmath.vector3(0,1,0),vmath.vector3(1,0,0),vmath.vector3(0,-1,0),vmath.vector3(-1,0,0)}
 
-local function get_next_tile(self,pos,last,layer)
+local function get_next_tile(self,pos,last,layer) --Use an enemy position to get the tile they should move to next
 	layer = layer or 1
 	local function get_out_bounds(tile_pos)
 		return(tile_pos.x < self.xcor or tile_pos.x > self.w+self.xcor-1 or tile_pos.y < self.ycor or tile_pos.y > self.h+self.ycor-1)
@@ -34,28 +34,28 @@ local function get_next_tile(self,pos,last,layer)
 	return vmath.vector3(0,0,0)
 end
 
-local function from_world(val)
+local function from_world(val) --World->tilemap
 	local pos = go.get_position()
 	val = vmath.vector3(val.x-pos.x,val.y-pos.y,0)
 	return (val+vmath.vector3(8*go.get_scale().x,8*go.get_scale().x,0))/(16*go.get_scale().x)
 end
 
-local function to_world(val)
+local function to_world(val) --Tilemap->world
 	local pos = go.get_position()
 	local world_transform = val*(16*go.get_scale().x)-vmath.vector3(8*go.get_scale().x,8*go.get_scale().x,0)
 	return vmath.vector3(world_transform.x+pos.x,world_transform.y+pos.y,0)
 end
 
-function init(self)
+function init(self) --Setup
 	setup_path(self)
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("get_start") then
+	if message_id == hash("get_start") then --Enemy wants the start tile
 		msg.post(sender, "start_callback",
 		{id = message.id,pos = to_world(self.start),5,
 		next = to_world(get_next_tile(self,self.start, vmath.vector3(0,0,0), 1))})
-	elseif message_id == hash("get_next") then
+	elseif message_id == hash("get_next") then --Enemy wants the next tile
 		local last = from_world(message.last)
 		local position = from_world(message.pos)
 		--print(position)

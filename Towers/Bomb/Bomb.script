@@ -11,7 +11,9 @@ function final(self)
 end
 
 function update(self, dt)
-	go.set_position(go.get_position()+vmath.vector3(10,0,0)*dt*100)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
 end
 
 function fixed_update(self, dt)
