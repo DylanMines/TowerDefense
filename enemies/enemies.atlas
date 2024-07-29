@@ -1,3 +1,15 @@
+images {
+  image: "/enemies/Regular_Enemy.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/enemies/Fast_Enemy.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/enemies/Damage_Enemy.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 animations {
   id: "Enemy"
   images {
@@ -90,3 +102,4 @@ extrude_borders: 2
 inner_padding: 0
 max_page_width: 0
 max_page_height: 0
+rename_patterns: ""

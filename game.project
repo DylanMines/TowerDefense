@@ -19,7 +19,7 @@ title = Tower
 max_count = 1024
 
 [particle_fx]
-max_count = 1024
+max_count = 2048
 max_emitter_count = 1024
 
 [factory]

@@ -1,30 +1,10 @@
 name: "main"
 instances {
-  id: "Archer"
-  prototype: "/Towers/Archer/Archer.go"
+  id: "Building Creator"
+  prototype: "/Building/Building Creator.go"
   position {
-    x: 282.0
-    y: 205.0
-    z: 0.0
-  }
-  rotation {
     x: 0.0
     y: 0.0
-    z: -0.5492475
-    w: 0.83565974
-  }
-  scale3 {
-    x: 0.5
-    y: 0.5
-    z: 1.0
-  }
-}
-instances {
-  id: "bomb"
-  prototype: "/Towers/Bomb/bomb.go"
-  position {
-    x: 477.0
-    y: 64.0
     z: 0.0
   }
   rotation {
@@ -32,26 +12,6 @@ instances {
     y: 0.0
     z: 0.0
     w: 1.0
-  }
-  scale3 {
-    x: 0.5
-    y: 0.5
-    z: 1.0
-  }
-}
-instances {
-  id: "Projectile"
-  prototype: "/Towers/Projectile.go"
-  position {
-    x: 387.0
-    y: 236.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: -0.7043611
-    w: 0.70984185
   }
   scale3 {
     x: 1.0
@@ -173,8 +133,8 @@ embedded_instances {
 embedded_instances {
   id: "gui"
   data: "components {\n"
-  "  id: \"tower_panel\"\n"
-  "  component: \"/Gui/tower_panel.gui\"\n"
+  "  id: \"build\"\n"
+  "  component: \"/Gui/build.gui\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"

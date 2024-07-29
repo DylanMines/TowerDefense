@@ -17,7 +17,7 @@ emitters {
   tile_source: "/builtins/graphics/particle_blob.tilesource"
   animation: "anim"
   material: "/builtins/materials/particlefx.material"
-  blend_mode: BLEND_MODE_SCREEN
+  blend_mode: BLEND_MODE_ADD
   particle_orientation: PARTICLE_ORIENTATION_DEFAULT
   inherit_velocity: 0.0
   max_particle_count: 128
@@ -27,7 +27,7 @@ emitters {
     key: EMITTER_KEY_SPAWN_RATE
     points {
       x: 0.0
-      y: 14.0
+      y: 10.0
       t_x: 1.0
       t_y: 0.0
     }
@@ -47,7 +47,7 @@ emitters {
     key: EMITTER_KEY_SIZE_Y
     points {
       x: 0.0
-      y: 12.0
+      y: 8.0
       t_x: 1.0
       t_y: 0.0
     }
@@ -71,13 +71,13 @@ emitters {
       t_x: 1.0
       t_y: 0.0
     }
-    spread: 0.0
+    spread: 0.1
   }
   properties {
     key: EMITTER_KEY_PARTICLE_SPEED
     points {
       x: 0.0
-      y: 100.0
+      y: 90.0
       t_x: 1.0
       t_y: 0.0
     }
@@ -87,7 +87,7 @@ emitters {
     key: EMITTER_KEY_PARTICLE_SIZE
     points {
       x: 0.0
-      y: 25.0
+      y: 26.0
       t_x: 1.0
       t_y: 0.0
     }
@@ -107,21 +107,21 @@ emitters {
     key: EMITTER_KEY_PARTICLE_GREEN
     points {
       x: 0.0
-      y: 1.0
+      y: 0.4
       t_x: 1.0
       t_y: 0.0
     }
-    spread: 0.0
+    spread: 0.1
   }
   properties {
     key: EMITTER_KEY_PARTICLE_BLUE
     points {
       x: 0.0
-      y: 1.0
+      y: 0.1
       t_x: 1.0
       t_y: 0.0
     }
-    spread: 0.0
+    spread: 0.1
   }
   properties {
     key: EMITTER_KEY_PARTICLE_ALPHA
@@ -195,18 +195,30 @@ emitters {
     key: PARTICLE_KEY_GREEN
     points {
       x: 0.0
-      y: 1.0
-      t_x: 1.0
-      t_y: 0.0
+      y: 0.42111516
+      t_x: 0.78885674
+      t_y: 0.6145771
+    }
+    points {
+      x: 1.0
+      y: 1.2103455
+      t_x: 0.37809056
+      t_y: -0.9257686
     }
   }
   particle_properties {
     key: PARTICLE_KEY_BLUE
     points {
       x: 0.0
-      y: 1.0
-      t_x: 1.0
-      t_y: 0.0
+      y: 0.2624279
+      t_x: 0.99609774
+      t_y: -0.08825683
+    }
+    points {
+      x: 1.0
+      y: 0.29139036
+      t_x: 0.22690897
+      t_y: -0.973916
     }
   }
   particle_properties {
@@ -253,12 +265,24 @@ emitters {
       t_x: 1.0
       t_y: 0.0
     }
+    points {
+      x: 1.0
+      y: 2.4675546
+      t_x: 1.0
+      t_y: 0.0
+    }
   }
   particle_properties {
     key: PARTICLE_KEY_STRETCH_FACTOR_Y
     points {
       x: 0.0
-      y: 0.0
+      y: -0.010196507
+      t_x: 1.0
+      t_y: 0.0
+    }
+    points {
+      x: 1.0
+      y: 2.4471617
       t_x: 1.0
       t_y: 0.0
     }
@@ -273,7 +297,7 @@ emitters {
     }
   }
   modifiers {
-    type: MODIFIER_TYPE_RADIAL
+    type: MODIFIER_TYPE_DRAG
     use_direction: 0
     position {
       x: 0.0
@@ -290,23 +314,7 @@ emitters {
       key: MODIFIER_KEY_MAGNITUDE
       points {
         x: 0.0
-        y: -25.273563
-        t_x: 0.0096974885
-        t_y: 0.999953
-      }
-      points {
-        x: 1.0
-        y: -90.0293
-        t_x: 0.0024145169
-        t_y: 0.9999971
-      }
-      spread: 0.0
-    }
-    properties {
-      key: MODIFIER_KEY_MAX_DISTANCE
-      points {
-        x: 0.0
-        y: 1000.0
+        y: 1.0
         t_x: 1.0
         t_y: 0.0
       }

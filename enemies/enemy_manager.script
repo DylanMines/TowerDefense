@@ -3,17 +3,15 @@
 local enemies = {}; --Enemy table
 
 --Setting up enemy types
+--TODO: change to the new ship thingy
 local types = {};
-local function add_type(speed,size,health,damage,color)
-	color = color or vmath.vector4(1,1,1,1)
-	table.insert(types, {speed = speed,size = size,color = color,health = health,damage = damage})
+local function add_type(speed,health,damage,name)
+	table.insert(types, {speed = speed,health = health,damage = damage,name = name})
 end
-add_type(3.5, 1, 45, 30, vmath.vector4(1,1,1,1)) --1: normal
-add_type(5,.75, 20, 5, vmath.vector4(1,0.9,0.1,1)) --2: slightly faster
-add_type(2,1.35, 60, 42, vmath.vector4(0.1,0.1,0.1,1)) --3: big boi
-add_type(4,0.95, 40, 26, vmath.vector4(0.9,0.1,1,1)) --4: slightly smaller boi
-add_type(3,1.05, 50, 34, vmath.vector4(0.1,0.1,1,1))
-add_type(1,2, 150, 100, vmath.vector4(1,0.5,0.1,1)) 
+add_type(3.5, 45, 30, "Regular") --1: normal
+add_type(5, 40, 26, "Fast") --2: slightly faster
+add_type(3, 50, 35, "Damage") --3: bigger guns
+
 ----
 
 local currentz = 0.24 --variable used to make sure enemies dont clip
@@ -32,10 +30,10 @@ function Enemy:new(o,type) --Constructor
 	o.go = factory.create("#factory")
 	--print(self.go)
 	local current_type = types[type]
+	o.name = current_type.name
 	local sprite_url = msg.url("main",o.go,"sprite")
-	go.set(sprite_url, "tint", current_type.color)
 	go.set(sprite_url, "playback_rate", current_type.speed)
-	go.set_scale(current_type.size,o.go)
+	msg.post(sprite_url, "play_animation",{id = hash(o.name.."_Enemy")})
 
 	o.zpos = currentz
 	o.last = vmath.vector3()
@@ -46,7 +44,6 @@ function Enemy:new(o,type) --Constructor
 	o.lastSpeed = o.speed
 	o.layer = 1
 	o.visible = true
-	o.tint = current_type.color
 	msg.post("/map#path_manager", "get_start",{id = o.go})
 	return o
 end
@@ -61,8 +58,8 @@ end
 
 function Enemy:move(pos,tile) --Move the enemy from current position to pos while doing the action of tile
 	pos = vmath.vector3(pos.x,pos.y,self.zpos+(0.5*(self.layer-1)))
-	print(tile)
-	print(self.lastSpeed)
+	--print(tile)
+	--print(self.lastSpeed)
 	-- speed math
 	self.last = go.get_position(self.go)
 	local speed = self.speed
@@ -120,16 +117,13 @@ end
 function Enemy:health_changed() --Do the red flashing thingy (Not to be used outside of class but idk how to make private functions in lua)
 	local red = vmath.vector4()
 	local sprite_url = msg.url("main",self.go,"sprite")
-	local particle_url = msg.url("main",self.go,"death")
+	
 	go.cancel_animations(sprite_url)
 	go.set(sprite_url,"tint.x",1)
-	go.set(sprite_url,"tint.z",self.tint.z-0.65)
-	go.set(sprite_url,"tint.y",self.tint.y-0.65)
+	go.set(sprite_url,"tint.z",0)
+	go.set(sprite_url,"tint.y",0)
 	if self.health <= 0 then
-		enemies[self.go] = nil
-		go.delete(self.go)
-		particlefx.play(particle_url)
-		particlefx.set_constant(particle_url, "emitter", "tint", self.tint)
+		self:final()
 	else
 		local easing = go.EASING_INOUTSINE
 		local function animate_tint(x,y,z,time, pingpong ,callback)
@@ -149,8 +143,25 @@ function Enemy:health_changed() --Do the red flashing thingy (Not to be used out
 end
 
 function Enemy:final() --Enemy died
+	local particle_url = msg.url("main",self.go,"death")
 	self.health = 0
-	self:health_changed()
+	local size = 80
+	local SM = size/5 --size multiplier
+	enemies[self.go] = nil
+		go.delete(self.go)
+		particlefx.play(particle_url)
+		particlefx.set_constant(particle_url, "emitter", "tint", vmath.vector4(1,1,1,1))
+	for _,v in pairs(enemies) do
+		if v == nil then return end
+		local position = v:get_position()
+		local selfPos = self:get_position()
+		local dist = vmath.length(vmath.vector3(selfPos.x,selfPos.y,0)-position)
+		if dist < size then
+			local dmg = math.abs((size+SM)/math.sqrt(dist+SM)-math.sqrt(size+SM))
+			print(dist,dmg*SM)
+			v:take_damage(dmg*SM)
+		end
+	end
 end
 
 function Enemy:get_id() --Accessor function
@@ -177,15 +188,15 @@ function init(self)
 	msg.post("@render:", "use_fixed_fit_projection")
 	local function call_every_second(self, handle, time_elapsed)
 		self.counter = self.counter + 1
-		SpawnEnemy(math.random(6))
+		SpawnEnemy(math.random(3))
 		--print(enemies[newEnemy:get_id()])
-		if self.counter == 511 then
+		if self.counter == 50000 then
 		  timer.cancel(handle) -- cancel timer after 10 calls
 		end
 	  end
 	self.counter = 0
 	--SpawnEnemy(1)
-	timer.delay(1, true, call_every_second)
+	timer.delay(0.1, true, call_every_second)
 end
 
 function on_message(self, message_id, message, sender)
@@ -212,9 +223,14 @@ function on_input(self,action_id,action)
 			if v == nil then return end
 			local position = v:get_position()
 			local dist = vmath.length(vmath.vector3(action.x,action.y,0)-position)
-			if dist < 40 then
-				v:take_damage(7)
+			if dist < 20 then
+				v:final()
 			end
+		end
+	elseif action_id == hash("killall") then
+		for _,v in pairs(enemies) do
+			if v == nil then return end
+			v:take_damage(70)
 		end
 	end
 end
