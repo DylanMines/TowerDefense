@@ -70,5 +70,8 @@
         "**/*.collection": true,
         "**/*.atlas": true,
         "**/icon_*.png": true
-    }
+    },
+    "Lua.diagnostics.disable": [
+        "unused-function"
+    ]
 }

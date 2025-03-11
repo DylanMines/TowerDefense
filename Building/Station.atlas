@@ -1,25 +1,5 @@
 images {
-  image: "/Building/Level 1.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/Building/Level 2.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/Building/Level 3.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/Building/Level 4.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/Building/Level 5.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/Building/Level 6.png"
+  image: "/Building/range.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0

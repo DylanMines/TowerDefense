@@ -1,47 +1,67 @@
+--Constants
+local BUILDING_URL = "#BuildingGrid"
+local OUTLINE_URL = "/BuildingOutline"
+local GRID_SIZE = 64
+
+--Helper functions
+local function getGridSpace(screenX,screenY)
+	local function round(num)
+		return math.floor(num+0.5)
+	end
+	return vmath.vector3(round(screenX/GRID_SIZE),round(screenY/GRID_SIZE),0)
+end
+local function move(gridSpace)
+	go.set_position(vmath.vector3(gridSpace.x*(GRID_SIZE/0.9),gridSpace.y*(GRID_SIZE/0.9),0),OUTLINE_URL)
+end
+local function checkIfOccupied(self,space)
+	for _,v in pairs(self.towers) do 
+		if v == space then
+			return true
+		end
+	end
+	return false
+end
+
+
 function init(self)
-	msg.post(".", "acquire_input_focus")
-	self.placeMode = false
-	
-end
+	--Script variables
+	self.lastPos = vmath.vector3()
+	self.gridSpace = vmath.vector3(vmath.vector3(2,2,0))
+	self.outlinePlace = vmath.vector3()
+	self.buildMode = false
+	self.towers = {}
 
-function final(self)
-	-- Add finalization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
-function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
-function fixed_update(self, dt)
-	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
-	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
-	-- Physics section of game.project
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	msg.post(".", "acquire_input_focus") --Get input focus for placing towers
+	msg.post(OUTLINE_URL, "disable") --Disable the outline to start
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("place_building") then
-		self.placeMode = true
-		print("building")
+	if message_id == hash("tile_empty_callback") then --Move the outline object with the mouse
+		if message.isEmpty == true then
+			self.gridSpace = self.outlinePlace
+			move(self.gridSpace)
+		end
+	elseif message_id == hash("activateBuildMode") then --The GUI scipt says its buildin' time
+		msg.post(OUTLINE_URL,"enable")
+		self.buildMode = true
+		move(vmath.vector3(3,2,0))
 	end
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("click") and action.pressed and self.placeMode == true then
-		factory.create("#factory", vmath.vector3(action.x,action.y,1))
-		print("placing building")
-		self.placeMode = false
+	if action_id == hash("click") and action.pressed and self.buildMode == true then --place a tower
+		self.buildMode = false;
+		msg.post(OUTLINE_URL,"disable")
+		table.insert(self.towers, self.gridSpace)
+		local id = factory.create("/towers#towerFactory", vmath.vector3(self.gridSpace.x*GRID_SIZE,self.gridSpace.y*GRID_SIZE,0))
+		msg.post(msg.url(nil, id, "Range"),"disable")
 	end
-end
-
-function on_reload(self)
-	-- Add reload-handling code here
-	-- Learn more: https://defold.com/manuals/hot-reload/
-	-- Remove this function if not needed
+	if action_id == nil and self.buildMode then --Move the outline
+		local gridSpace = getGridSpace(action.x, action.y)
+		if gridSpace ~= self.lastPos then
+			if checkIfOccupied(self, gridSpace) then return end
+			self.outlinePlace = gridSpace
+			msg.post("/map#path_manager", "is_tile_empty",{x = action.x, y = action.y})
+		end
+	end
 end

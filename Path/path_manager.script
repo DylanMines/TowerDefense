@@ -1,3 +1,5 @@
+local pData = require("Path.path_data")
+
 local function setup_path(self) --Find the start tile.
 	self.start = nil
 	self.xcor,self.ycor,self.w,self.h = tilemap.get_bounds("#Path")
@@ -9,11 +11,14 @@ local function setup_path(self) --Find the start tile.
 			end
 		end
 	end
+	pData.start = self.start
 end
+
 
 local positions = {vmath.vector3(0,1,0),vmath.vector3(1,0,0),vmath.vector3(0,-1,0),vmath.vector3(-1,0,0)}
 
 local function get_next_tile(self,pos,last,layer) --Use an enemy position to get the tile they should move to next
+--print(pos)
 	layer = layer or 1
 	local function get_out_bounds(tile_pos)
 		return(tile_pos.x < self.xcor or tile_pos.x > self.w+self.xcor-1 or tile_pos.y < self.ycor or tile_pos.y > self.h+self.ycor-1)
@@ -31,37 +36,72 @@ local function get_next_tile(self,pos,last,layer) --Use an enemy position to get
 			return npos,tilemap.get_tile("#Path", "layer"..layer, npos.x, npos.y)
 		end
 	end
-	return vmath.vector3(0,0,0)
+	return vmath.vector3(0,0,0),0
 end
 
-local function from_world(val) --World->tilemap
-	local pos = go.get_position()
-	val = vmath.vector3(val.x-pos.x,val.y-pos.y,0)
-	return (val+vmath.vector3(8*go.get_scale().x,8*go.get_scale().x,0))/(16*go.get_scale().x)
+local function isTileEmpty(self,screenX,screenY)
+	local val = pData.from_world(vmath.vector3(screenX,screenY,0))
+	val.x = math.floor(val.x+0.5)
+	val.y = math.floor(val.y+0.5)
+	--print(val)
+	if val.x < self.xcor or val.x > self.xcor+self.w-1 or val.y<self.ycor or val.y > self.ycor+self.h-1 then return true end
+	if tilemap.get_tile("#Path", "layer1", val.x, val.y) ~= 0 or tilemap.get_tile("#Path", "layer2", val.x, val.y) ~= 0 then --ONLY 2 LAYERS DONT FORGET (this is going to bite me in the ass later)
+		return false
+	end
+	return true
 end
 
-local function to_world(val) --Tilemap->world
-	local pos = go.get_position()
-	local world_transform = val*(16*go.get_scale().x)-vmath.vector3(8*go.get_scale().x,8*go.get_scale().x,0)
-	return vmath.vector3(world_transform.x+pos.x,world_transform.y+pos.y,0)
+local function setPathData(self)
+	local tile = 5
+	local tilePos = self.start
+	local layer = 1
+	table.insert(pData.path, {self.start,5,1})
+	local tilePos,tile = get_next_tile(self, self.start, vmath.vector3(0,0,0))
+	table.insert(pData.path, {tilePos,tile,layer})
+	while (tile ~= 6) do
+		tilePos,tile = get_next_tile(self, pData.path[#pData.path][1], pData.path[#pData.path-1][1], layer)
+		if tile == 2 then
+			layer = layer + 1
+		elseif tile == 3 then
+			layer = layer - 1
+		end
+		table.insert(pData.path, {tilePos,tile,layer})
+	end
+	pData.scale = go.get_scale()
+	pData.pos = go.get_position()
 end
 
 function init(self) --Setup
+	self.layers = 1
 	setup_path(self)
+	setPathData(self)
+	msg.post(".","acquire_input_focus")
 end
 
+function on_input(self, action_id, action)
+	if action_id == hash("click") and action.pressed then
+		--print(isTileEmpty(self,action.x,action.y))
+	end
+	
+end
+
+--TODO: replace callback methods
 function on_message(self, message_id, message, sender)
 	if message_id == hash("get_start") then --Enemy wants the start tile
+		print("ERR: should not be using get_start")
 		msg.post(sender, "start_callback",
-		{id = message.id,pos = to_world(self.start),5,
-		next = to_world(get_next_tile(self,self.start, vmath.vector3(0,0,0), 1))})
+		{id = message.id,pos = pData.to_world(self.start),5,
+		next = pData.to_world(get_next_tile(self,self.start, vmath.vector3(0,0,0), 1))})
 	elseif message_id == hash("get_next") then --Enemy wants the next tile
-		local last = from_world(message.last)
-		local position = from_world(message.pos)
+		print("ERR: should not be using get_next")
+		local last = pData.from_world(message.last)
+		local position = pData.from_world(message.pos)
 		--print(position)
 		--print(message.layer)
 		local pos,tile = get_next_tile(self,position,last,message.layer)
 		--print(pos,tile)
-		msg.post(sender, "next_callback", {pos = to_world(pos),tile = tile,id = message.id})
+		msg.post(sender, "next_callback", {pos = pData.to_world(pos),tile = tile,id = message.id})
+	elseif message_id == hash("is_tile_empty") then --the building script is checking if theres a tile in a location
+		msg.post(sender, "tile_empty_callback",{isEmpty = isTileEmpty(self,message.x, message.y)})
 	end
 end
