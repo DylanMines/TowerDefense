@@ -1,13 +1,13 @@
+DEBUG_MODE = false --if set to true debug logs will be printed to console and fps will be displayed
 function init(self)
-	self.DEBUG_MODE = false --if set to true debug logs will be printed to console and fps will be displayed
 	self.debounce = false
 
 	if not DEBUG_MODE then
-		label.set_text("")
+		--label.set_text("")
 	end
 end
 
-function update_fps_counter(self, dt) 
+local function update_fps_counter(self, dt) 
 	if self.debounce == true then
 		local fps = (math.floor((10/dt)+0.5))/10
 		label.set_text("/debug_fps#counter", "FPS: "..fps)
@@ -34,7 +34,7 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("debug_print") then
-		if self.DEBUG_MODE == true then
+		if DEBUG_MODE == true then
 			print(message.log);
 		end
 	end
