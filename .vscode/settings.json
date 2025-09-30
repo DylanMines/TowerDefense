@@ -4,7 +4,8 @@
     "Lua.completion.callSnippet": "Replace",
     "Lua.runtime.version": "Lua 5.1",
     "Lua.workspace.library": [
-        ".defold/api"
+        ".defold/api",
+        "~/.config/Code/User/globalStorage/astronachos.defold"
     ],
     "Lua.diagnostics.libraryFiles": "Disable",
     "Lua.workspace.ignoreDir": [
@@ -58,7 +59,10 @@
         "*.texture_profiles": "textproto",
         "*.tilemap": "textproto",
         "*.tilesource": "textproto",
-        "*.appmanifest": "yaml"
+        "*.appmanifest": "yaml",
+        "*.manifest": "textproto",
+        "*.script_api": "yaml",
+        "ext.manifest": "yaml"
     },
     "search.exclude": {
         "**/node_modules": true,
@@ -72,6 +76,20 @@
         "**/icon_*.png": true
     },
     "Lua.diagnostics.disable": [
-        "unused-function"
-    ]
+        "unused-function",
+        "lowercase-global",
+        "redefined-local"
+    ],
+    "[lua]": {
+        "editor.defaultFormatter": "sumneko.lua"
+    },
+    "Lua.runtime.pathStrict": true,
+    "Lua.window.statusBar": false,
+    "Lua.completion.keywordSnippet": "Replace",
+    "Lua.completion.showWord": "Fallback",
+    "Lua.completion.autoRequire": false,
+    "glsllint.additionalStageAssociations": {
+        ".fp": "frag",
+        ".vp": "vert"
+    }
 }
