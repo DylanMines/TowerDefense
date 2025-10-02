@@ -31,7 +31,7 @@ M.CUBE_DIRECTION_VECTORS = {
 }
 
 function M.cude_direction(direction)
-    return M.cube_direction_vectors[direction]
+    return M.CUBE_DIRECTION_VECTORS[direction]
 end
 
 function M.cube_add(hex, vec)
