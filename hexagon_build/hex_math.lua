@@ -21,17 +21,17 @@ HEX DIRECTIONS
 vmath.vector3(q,r,s) for cude coordinates
 ]]
 
-M.directions = {
+M.DIRECTIONS = {
     BOTTOM_RIGHT = 1, TOP_RIGHT=2, TOP = 3, TOP_LEFT=4, BOTTOM_LEFT = 5, BOTTOM = 6
 }
 
-M.cube_direction_vectors = {
+M.CUBE_DIRECTION_VECTORS = {
     vmath.vector3(1,0,-1),vmath.vector3(1,-1,0),vmath.vector3(0,-1,1),
     vmath.vector3(-1,0,1),vmath.vector3(-1,1,0),vmath.vector3(0,1,-1)
 }
 
 function M.cude_direction(direction)
-    return cube_direction_vectors[direction]
+    return M.cube_direction_vectors[direction]
 end
 
 function M.cube_add(hex, vec)
