@@ -21,6 +21,7 @@ HEX DIRECTIONS
 vmath.vector3(q,r,s) for cude coordinates
 ]]
 
+--neighbors
 M.DIRECTIONS = {
     BOTTOM_RIGHT = 1, TOP_RIGHT=2, TOP = 3, TOP_LEFT=4, BOTTOM_LEFT = 5, BOTTOM = 6
 }
@@ -34,12 +35,8 @@ function M.cude_direction(direction)
     return M.CUBE_DIRECTION_VECTORS[direction]
 end
 
-function M.cube_add(hex, vec)
-    return vmath.vector3(hex.x + vec.x, hex.y + vec.y, hex.z + vec.z)
-end
-
 function M.cube_neighbor(cube, direction)
-    return M.cube_add(cube, M.cube_direction(direction))
+    return cube + M.cube_direction(direction)
 end
 
 --conversions
@@ -51,6 +48,16 @@ function M.axial_to_cube(axial)
     local q = axial.x   
     local r = axial.y
     return vmath.vector3(q,r,-q-r)
+end
+
+--transform
+local function rotate_cube(cube,center) --vector3, vector3
+    center = center or vmath.vector3(0)
+
+    local vector = cube - center
+    local rotated_vector = vmath.vector3(-vector.y,-vector.z,-vector.x)
+    return rotated_vector + center
+    --vec = cube_subtract(hex, center) = Cube(hex.q - center.q, hex.r - center.r, hex.s - center.s)
 end
 
 return M
