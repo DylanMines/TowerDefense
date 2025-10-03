@@ -51,13 +51,33 @@ function M.axial_to_cube(axial)
 end
 
 --transform
-local function rotate_cube(cube,center) --vector3, vector3
+function M.rotate_cube(cube,center) --vector3, vector3
     center = center or vmath.vector3(0)
 
     local vector = cube - center
     local rotated_vector = vmath.vector3(-vector.y,-vector.z,-vector.x)
     return rotated_vector + center
     --vec = cube_subtract(hex, center) = Cube(hex.q - center.q, hex.r - center.r, hex.s - center.s)
+end
+
+function M.cube_round(frac)
+    local q = math.floor(frac.x+0.5)
+    local r = math.floor(frac.y+0.5)
+    local s = math.floor(frac.z+0.5)
+
+    local q_diff = math.abs(q - frac.x)
+    local r_diff = math.abs(r - frac.y)
+    local s_diff = math.abs(s - frac.z)
+
+    if q_diff > r_diff and q_diff > s_diff then
+        q = -r-s
+    elseif r_diff > s_diff then
+        r = -q-s
+    else
+        s = -q-r
+    end
+
+    return vmath.vector3(q,r,s)
 end
 
 return M
