@@ -1,0 +1,4 @@
+images {
+  image: "/hexagon/tile/tile.png"
+}
+extrude_borders: 2
