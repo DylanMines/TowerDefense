@@ -26,6 +26,18 @@ M.DIRECTIONS = {
     BOTTOM_RIGHT = 1, TOP_RIGHT=2, TOP = 3, TOP_LEFT=4, BOTTOM_LEFT = 5, BOTTOM = 6
 }
 
+local ORIENTATION = {
+	f0 = 3 / 2,
+	f1 = 0,
+	f2 = math.sqrt(3) / 2,
+	f3 = math.sqrt(3),
+	b0 = 2 / 3,
+	b1 = 0,
+	b2 = -1 / 3,
+	b3 = math.sqrt(3) / 3,
+	start_angle = 0,
+}
+
 local CUBE_DIRECTION_VECTORS = {
     vmath.vector3(1,0,-1),vmath.vector3(1,-1,0),vmath.vector3(0,-1,1),
     vmath.vector3(-1,0,1),vmath.vector3(-1,1,0),vmath.vector3(0,1,-1)
@@ -51,11 +63,11 @@ function M.axial_to_cube(axial)
 end
 
 function M.get_horizontal_distance(size)
-    return (3/2)*size
+    return ORIENTATION.f0*size
 end
 
 function M.get_vertical_distance(size)
-    return math.floor(math.sqrt(3)*size+0.5)
+    return ORIENTATION.f3*size+0.5
 end
 
 --transform
@@ -87,5 +99,39 @@ function M.cube_round(frac)
 
     return vmath.vector3(q,r,s)
 end
+
+--screen to hex and back
+local function matrix_multiply(vec3,matrix)
+    return vmath.vector3(vec3.x * matrix[1] + vec3.y * matrix[2], vec3.x * matrix[3] + vec3.y * matrix[4])
+end
+
+function M.hex_to_pixel(hex,size,offset)
+    offset = offset or vmath.vector3()
+
+    hex = M.cube_to_axial(hex)
+    --local vector = vmath.vector3(hex.x * ORIENTATION.f0, hex.y * ORIENTATION.f1, hex.x * ORIENTATION.f2 + hex.y * ORIENTATION.f3)
+    local vector = matrix_multiply(hex, {ORIENTATION.f0,ORIENTATION.f1,ORIENTATION.f2,ORIENTATION.f3})
+
+    vector = vector + offset
+
+    return vector*size
+end
+
+function M.pixel_to_hex(pixel, size, offset) --offset is the center, in pixels. Theoretically, it would be the position of the collection
+    offset = offset or vmath.vector3()
+
+    pixel = pixel - offset
+
+    pixel.x = pixel.x / size.x
+    pixel.y = pixel.y / size.y
+
+    --local vector = vmath.vector3(pixel.x * ORIENTATION.b0, pixel.y * ORIENTATION.b1, pixel.x * ORIENTATION.b2 + pixel.y * ORIENTATION.b3)
+    local vector = matrix_multiply(pixel, {ORIENTATION.b0,ORIENTATION.b1,ORIENTATION.b2,ORIENTATION.b3})
+
+    local cube_vector = M.axial_to_cube(vector)
+
+    M.cube_round(cube_vector)
+end
+
 
 return M
