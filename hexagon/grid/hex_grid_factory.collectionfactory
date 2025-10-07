@@ -1,0 +1,2 @@
+prototype: "/hexagon/grid/hex_grid.collection"
+load_dynamically: true

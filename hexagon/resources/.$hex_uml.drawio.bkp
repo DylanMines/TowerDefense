@@ -1,0 +1,37 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1072" dy="639" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="eNXQ79x8ePPdt4Bu0Wz--4" value="hex_geometry.lua" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="319" y="200" width="241" height="216" as="geometry" />
+        </mxCell>
+        <mxCell id="eNXQ79x8ePPdt4Bu0Wz--5" value="+ DIRECTIONS: direction" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="eNXQ79x8ePPdt4Bu0Wz--4">
+          <mxGeometry y="26" width="241" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="eNXQ79x8ePPdt4Bu0Wz--6" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="eNXQ79x8ePPdt4Bu0Wz--4">
+          <mxGeometry y="52" width="241" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="eNXQ79x8ePPdt4Bu0Wz--7" value="+ cube_to_axial(vec3): vec3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="eNXQ79x8ePPdt4Bu0Wz--4">
+          <mxGeometry y="60" width="241" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="eNXQ79x8ePPdt4Bu0Wz--8" value="+ axial_to_cube(vec3): vec3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="eNXQ79x8ePPdt4Bu0Wz--4">
+          <mxGeometry y="86" width="241" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="eNXQ79x8ePPdt4Bu0Wz--9" value="-&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;cube_direction(direction): vec3&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="eNXQ79x8ePPdt4Bu0Wz--4">
+          <mxGeometry y="112" width="241" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="eNXQ79x8ePPdt4Bu0Wz--12" value="+ cube_neighbor(vec3, direction): vec3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="eNXQ79x8ePPdt4Bu0Wz--4">
+          <mxGeometry y="138" width="241" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="eNXQ79x8ePPdt4Bu0Wz--11" value="+ rotate_cube(vec3, vec3?): vec3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="eNXQ79x8ePPdt4Bu0Wz--4">
+          <mxGeometry y="164" width="241" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="eNXQ79x8ePPdt4Bu0Wz--13" value="+ cube_round&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(vec3): vec3&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="eNXQ79x8ePPdt4Bu0Wz--4">
+          <mxGeometry y="190" width="241" height="26" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

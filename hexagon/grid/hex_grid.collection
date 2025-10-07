@@ -1,0 +1,6 @@
+name: "hex_grid"
+instances {
+  id: "hex_grid_controller"
+  prototype: "/hexagon/grid/hex_grid_controller.go"
+}
+scale_along_z: 0
