@@ -50,6 +50,14 @@ function M.axial_to_cube(axial)
     return vmath.vector3(q,r,-q-r)
 end
 
+function M.get_horizontal_distance(size)
+    return (3/2)*size
+end
+
+function M.get_vertical_distance(size)
+    return math.floor(math.sqrt(3)*size+0.5)
+end
+
 --transform
 function M.rotate_cube(cube,center) --vector3, vector3
     center = center or vmath.vector3(0)
