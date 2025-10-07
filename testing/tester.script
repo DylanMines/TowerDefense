@@ -1,13 +1,7 @@
 local deftest = require "deftest.deftest"
-local tests = --test modules MUST be added here to work
-{
-
-
-}
+local test_hex_geometry = require "testing.hexagon.resources.test_hex_geometry"
 
 function init(self)
-    for _,v in pairs(tests) do
-		deftest.Add(require(v))
-	end
+    deftest.add(test_hex_geometry)
     deftest.run()
 end
