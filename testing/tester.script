@@ -1,0 +1,13 @@
+local deftest = require "deftest.deftest"
+local tests = --test modules MUST be added here to work
+{
+
+
+}
+
+function init(self)
+    for _,v in pairs(tests) do
+		deftest.Add(require(v))
+	end
+    deftest.run()
+end
