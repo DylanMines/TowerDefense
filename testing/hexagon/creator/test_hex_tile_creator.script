@@ -1,0 +1,5 @@
+local large_grids = require("hexagon.grid_maps.large")
+
+function init(self)
+	msg.post("/hex_grid_creator#hex_grid_creator", "build_grid", {size = 74, map = large_grids.layout_1})
+end

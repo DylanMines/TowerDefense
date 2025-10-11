@@ -35,10 +35,7 @@ local function build_grid(size,map)
 
 	local new_grid_object = factory.create("#hex_grid_factory")
 	local tiles = {}
-	for_each_tile(map, function (tile, x, y)
-		if (tile == 0) then
-			return
-		end
+	for_each_tile(map, function (x, y)
 		local hex_position = vmath.vector3(x,y,0)
 		local pixel_position = hexagon_geometry.hex_to_pixel(hex_position, size) or vmath.vector3()
 		local new_tile_id = factory.create("#hex_tile_factory",pixel_position)
