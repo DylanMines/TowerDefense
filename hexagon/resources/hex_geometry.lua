@@ -44,11 +44,11 @@ local CUBE_DIRECTION_VECTORS = {
 }
 
 local function cube_direction(direction)
-    return M.CUBE_DIRECTION_VECTORS[direction]
+    return CUBE_DIRECTION_VECTORS[direction]
 end
 
 function M.cube_neighbor(cube, direction)
-    return cube + M.cube_direction(direction)
+    return cube + cube_direction(direction)
 end
 
 --conversions
@@ -67,7 +67,7 @@ function M.get_horizontal_distance(size)
 end
 
 function M.get_vertical_distance(size)
-    return ORIENTATION.f3*size+0.5
+    return ORIENTATION.f3*size
 end
 
 --transform

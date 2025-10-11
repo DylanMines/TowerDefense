@@ -1,0 +1,7 @@
+local deftest = require "deftest.deftest"
+local test_hex_geometry = require "testing.hexagon.resources.test_hex_geometry"
+
+function init(self)
+    deftest.add(test_hex_geometry)
+    deftest.run()
+end
