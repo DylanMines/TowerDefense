@@ -1,3 +1,7 @@
+local hexagon_geometry = require("hexagon.resources.hex_geometry")
+
+local TILE_SIZE_DEFAULT = 74
+
 function init(self)
 	-- Add initialization code here
 	-- Learn more: https://defold.com/manuals/script/
@@ -10,41 +14,50 @@ function final(self)
 	-- Remove this function if not needed
 end
 
-function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+local function for_each_tile(tilemap, tile_operation)
+	local left, bottom, columns_count, rows_count = tilemap.get_bounds("#tilemap")
+	local tiles = tilemap.get_tiles("#tilemap", "layer")
+	local tile, count = 0, 0
+	for row_index = bottom, bottom + rows_count - 1 do
+    	for column_index = left, left + columns_count - 1 do
+        	tile = tiles[row_index][column_index]
+        	count = count + 1
+			tile_operation(tile, row_index, column_index)
+    	end
+	end
 end
 
-function fixed_update(self, dt)
-	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
-	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
-	-- Physics section of game.project
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+local function build_grid(size,tilemap)
+	size = TILE_SIZE_DEFAULT --temporary fix for the sprite scaling
+	--[[
+	* create new collection
+	* create a table to keep track of tiles
+	* for each tile in the tilemap,
+		- create a tile
+		- parent the tile
+		- position the tile
+		- put the tile in the table using a map: [vec3] = id
+	* send the tile table to the new grid's controller script
+	]]
+
+	local new_grid_object = factory.create("#hex_grid_factory")
+	local tiles = {}
+	for_each_tile(tilemap, function (tile, row_index, column_index)
+		if (tile == 0) then
+			return
+		end
+		local hex_position = vmath.vector3(row_index,column_index,0)
+		local pixel_position = hexagon_geometry.hex_to_pixel(vmath.vector3(row_index,column_index,0), size) or vmath.vector3()
+		local new_tile_id = factory.create("#hex_tile_factory",pixel_position)
+		msg.post(new_tile_id, "set_parent", { parent_id = new_grid_object, keep_world_transform = 1 })
+		--TODO: scale the tile based on size
+		tiles[hex_position] = new_tile_id
+	end)
+	msg.post(msg.url(nil,new_grid_object, "hex_grid_controller"), "set_tiles",{tiles = tiles})
 end
 
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Learn more: https://defold.com/manuals/message-passing/
-	-- Remove this function if not needed
-end
-
-function on_input(self, action_id, action)
-	-- Add input-handling code here. The game object this script is attached to
-	-- must have acquired input focus:
-	--
-	--    msg.post(".", "acquire_input_focus")
-	--
-	-- All mapped input bindings will be received. Mouse and touch input will
-	-- be received regardless of where on the screen it happened.
-	-- Learn more: https://defold.com/manuals/input/
-	-- Remove this function if not needed
-end
-
-function on_reload(self)
-	-- Add reload-handling code here
-	-- Learn more: https://defold.com/manuals/hot-reload/
-	-- Remove this function if not needed
+	if message_id == hash("build_grid") then
+		build_grid(message.size or TILE_SIZE_DEFAULT, message.tilemap)
+	end
 end
