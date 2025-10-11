@@ -27,7 +27,7 @@ local function for_each_tile(tilemap, tile_operation)
 	end
 end
 
-local function build_grid(size,tilemap)
+local function build_grid(size,map)
 	size = TILE_SIZE_DEFAULT --temporary fix for the sprite scaling
 	--[[
 	* create new collection
@@ -42,7 +42,7 @@ local function build_grid(size,tilemap)
 
 	local new_grid_object = factory.create("#hex_grid_factory")
 	local tiles = {}
-	for_each_tile(tilemap, function (tile, row_index, column_index)
+	for_each_tile(map, function (tile, row_index, column_index)
 		if (tile == 0) then
 			return
 		end
@@ -58,6 +58,6 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("build_grid") then
-		build_grid(message.size or TILE_SIZE_DEFAULT, message.tilemap)
+		build_grid(message.size or TILE_SIZE_DEFAULT, message.map)
 	end
 end
