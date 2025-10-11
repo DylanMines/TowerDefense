@@ -14,16 +14,9 @@ function final(self)
 	-- Remove this function if not needed
 end
 
-local function for_each_tile(tilemap, tile_operation)
-	local left, bottom, columns_count, rows_count = tilemap.get_bounds("#tilemap")
-	local tiles = tilemap.get_tiles("#tilemap", "layer")
-	local tile, count = 0, 0
-	for row_index = bottom, bottom + rows_count - 1 do
-    	for column_index = left, left + columns_count - 1 do
-        	tile = tiles[row_index][column_index]
-        	count = count + 1
-			tile_operation(tile, row_index, column_index)
-    	end
+local function for_each_tile(map, tile_operation)
+	for _, value in ipairs(map) do
+		tile_operation(value[1],value[2])
 	end
 end
 
@@ -42,12 +35,12 @@ local function build_grid(size,map)
 
 	local new_grid_object = factory.create("#hex_grid_factory")
 	local tiles = {}
-	for_each_tile(map, function (tile, row_index, column_index)
+	for_each_tile(map, function (tile, x, y)
 		if (tile == 0) then
 			return
 		end
-		local hex_position = vmath.vector3(row_index,column_index,0)
-		local pixel_position = hexagon_geometry.hex_to_pixel(vmath.vector3(row_index,column_index,0), size) or vmath.vector3()
+		local hex_position = vmath.vector3(x,y,0)
+		local pixel_position = hexagon_geometry.hex_to_pixel(hex_position, size) or vmath.vector3()
 		local new_tile_id = factory.create("#hex_tile_factory",pixel_position)
 		msg.post(new_tile_id, "set_parent", { parent_id = new_grid_object, keep_world_transform = 1 })
 		--TODO: scale the tile based on size
