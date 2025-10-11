@@ -1,0 +1,41 @@
+tile_set: "/Path/Path_technical.tilesource"
+layers {
+  id: "layer1"
+  z: 0.0
+  cell {
+    x: 0
+    y: -2
+    tile: 0
+  }
+  cell {
+    x: -1
+    y: -2
+    tile: 0
+  }
+  cell {
+    x: 0
+    y: -1
+    tile: 0
+  }
+  cell {
+    x: -2
+    y: -1
+    tile: 0
+  }
+  cell {
+    x: -1
+    y: -1
+    tile: 0
+  }
+  cell {
+    x: -2
+    y: 0
+    tile: 0
+  }
+  cell {
+    x: -1
+    y: 0
+    tile: 0
+  }
+}
+material: "/builtins/materials/tile_map.material"
