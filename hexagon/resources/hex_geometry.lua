@@ -102,7 +102,7 @@ end
 
 --screen to hex and back
 local function matrix_multiply(vec3,matrix)
-    return vmath.vector3(vec3.x * matrix[1] + vec3.y * matrix[2], vec3.x * matrix[3] + vec3.y * matrix[4])
+    return vmath.vector3(vec3.x * matrix[1] + vec3.y * matrix[2], vec3.x * matrix[3] + vec3.y * matrix[4], 0)
 end
 
 function M.hex_to_pixel(hex,size,offset)
