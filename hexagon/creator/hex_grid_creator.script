@@ -43,11 +43,13 @@ local function build_grid(size,map)
 		--TODO: scale the tile based on size
 		tiles[hex_position] = new_tile_id
 	end)
-	msg.post(msg.url(nil,new_grid_object, "hex_grid_controller"), "set_tiles",{tiles = tiles})
+	--msg.post(msg.url(nil,new_grid_object, "hex_grid_controller"), "set_tiles",{tiles = tiles}) 
+	--TODO: find a solution to this, since message keys can't be userdata
+	return new_grid_object
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("build_grid") then
-		build_grid(message.size or TILE_SIZE_DEFAULT, message.map)
+		msg.post(sender,"grid_object_callback",{object =  build_grid(message.size or TILE_SIZE_DEFAULT, message.map)})
 	end
 end
