@@ -1,4 +1,4 @@
-local enemyClass = require("enemies.enemy")
+local enemyClass = require("enemy.resources.enemy")
 --Setting up enemy types
 
 local function add_type(speed,health,damage,name)
