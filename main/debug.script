@@ -1,9 +1,11 @@
-DEBUG_MODE = false --if set to true debug logs will be printed to console and fps will be displayed
+--DEBUG_MODE = false --if set to true debug logs will be printed to console and fps will be displayed
+go.property("DEBUG_MODE", false)
 function init(self)
+	self.DEBUG_MODE = go.get("#", "DEBUG_MODE")
 	self.debounce = false
 
-	if not DEBUG_MODE then
-		--label.set_text("")
+	if not self.DEBUG_MODE then
+		msg.post(".", "disable")
 	end
 end
 
@@ -18,8 +20,8 @@ local function update_fps_counter(self, dt)
 end
 
 function update(self, dt)
-	if DEBUG_MODE then
-		update_fps_counter()
+	if self.DEBUG_MODE then
+		update_fps_counter(self,dt)
 	end
 end
 
@@ -34,7 +36,7 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("debug_print") then
-		if DEBUG_MODE == true then
+		if self.DEBUG_MODE == true then
 			print(message.log);
 		end
 	end

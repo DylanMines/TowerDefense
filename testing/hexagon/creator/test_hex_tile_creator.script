@@ -4,12 +4,10 @@ function callback(object)
 	go.set_position(vmath.vector3(400,400,0),object)
 end
 
-function init(self)
-	msg.post("/hex_grid_creator#hex_grid_creator", "build_grid", {size = 74, map = large_grids.layout_1})
-end
-
 function on_message(self, message_id, message, sender)
 	if message_id == hash("grid_object_callback") then
 		callback(message.object)
+	elseif message_id == hash("test") then
+		msg.post("/hex_grid_creator#hex_grid_creator", "build_grid", {size = 74, map = large_grids.layout_1})
 	end
 end
