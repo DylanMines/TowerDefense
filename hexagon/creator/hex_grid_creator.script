@@ -2,18 +2,6 @@ local hexagon_geometry = require("hexagon.resources.hex_geometry")
 
 local TILE_SIZE_DEFAULT = 74
 
-function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
-function final(self)
-	-- Add finalization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
 local function for_each_tile(map, tile_operation)
 	for _, value in ipairs(map) do
 		tile_operation(value[1],value[2])
@@ -34,22 +22,22 @@ local function build_grid(size,map)
 	]]
 
 	local new_grid_object = factory.create("#hex_grid_factory")
-	local tiles = {}
+	local tiles = {size}
 	for_each_tile(map, function (x, y)
 		local hex_position = vmath.vector3(x,y,0)
 		local pixel_position = hexagon_geometry.hex_to_pixel(hex_position, size) or vmath.vector3()
 		local new_tile_id = factory.create("#hex_tile_factory",pixel_position)
 		msg.post(new_tile_id, "set_parent", { parent_id = new_grid_object, keep_world_transform = 1 })
 		--TODO: scale the tile based on size
-		tiles[hex_position] = new_tile_id
+		table.insert(tiles,new_tile_id)
 	end)
-	--msg.post(msg.url(nil,new_grid_object, "hex_grid_controller"), "set_tiles",{tiles = tiles}) 
+	msg.post(msg.url(nil,new_grid_object, "hex_grid_controller"), "set_tiles",{tiles = tiles})
 	--TODO: find a solution to this, since message keys can't be userdata
 	return new_grid_object
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("build_grid") then
-		msg.post(sender,"grid_object_callback",{object =  build_grid(message.size or TILE_SIZE_DEFAULT, message.map)})
+		msg.post(sender,"grid_object_callback",{object = build_grid(message.size or TILE_SIZE_DEFAULT, message.map)})
 	end
 end
