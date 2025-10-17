@@ -16,17 +16,9 @@ function update(self, dt)
 	-- Remove this function if not needed
 end
 
-function fixed_update(self, dt)
-	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
-	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
-	-- Physics section of game.project
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
-function on_message(self, message_id, message, sender)
-	if message_id == hash("set_tiles") then
+local message_functions = 
+{
+	["set_tiles"] = function (self,message)
 		local size = 0; --unknown size
 		for index, tile in ipairs(message.tiles) do
 			if index == 1 then size = tile end
@@ -36,6 +28,19 @@ function on_message(self, message_id, message, sender)
 		end
 
 		self.tiles = message.tiles
+	end,
+	["set_tile_color"] = function (self, message)
+		local pos = message.position
+		local tile = self.tiles[pos]
+		go.set("#"..tile.."/".."sprite", "tint", message.color)
+	end
+}
+
+function on_message(self, message_id, message, sender)
+	for key, value in pairs(message_functions) do
+		if message_id == hash(key) then
+			message_functions[key](self,message)
+		end
 	end
 end
 
