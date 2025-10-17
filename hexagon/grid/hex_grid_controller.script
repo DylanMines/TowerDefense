@@ -1,3 +1,5 @@
+local hexagon_geometry = require("hexagon.resources.hex_geometry")
+
 function init(self)
 	self.tiles = {}
 end
@@ -25,6 +27,14 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("set_tiles") then
+		local size = 0; --unknown size
+		for index, tile in ipairs(message.tiles) do
+			if index == 1 then size = tile end
+			local tile_url = "#"..tile
+			local pos = hexagon_geometry.pixel_to_hex(go.get_position(tile_url), size) or vmath.vector3(0)
+			self.tiles[pos] = tile
+		end
+
 		self.tiles = message.tiles
 	end
 end
