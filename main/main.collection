@@ -7,6 +7,10 @@ instances {
   id: "hex_grid_creator"
   prototype: "/hexagon/creator/hex_grid_creator.go"
 }
+instances {
+  id: "test_tile_creator"
+  prototype: "/testing/hexagon/creator/test_tile_creator.go"
+}
 scale_along_z: 0
 embedded_instances {
   id: "map"
