@@ -19,20 +19,21 @@ end
 local message_functions = 
 {
 	["set_tiles"] = function (self,message)
-		local size = 0; --unknown size
-		for index, tile in ipairs(message.tiles) do
-			if index == 1 then size = tile end
-			local tile_url = "#"..tile
-			local pos = hexagon_geometry.pixel_to_hex(go.get_position(tile_url), size) or vmath.vector3(0)
-			self.tiles[pos] = tile
+		local size = message.tiles[1];
+		for i = 2,#message.tiles,1 do
+			local tile = message.tiles[i]
+			local pos = hexagon_geometry.cube_to_axial(hexagon_geometry.pixel_to_hex(go.get_position(tile), size))
+			if self.tiles[pos.x] == nil then
+				self.tiles[pos.x] = {}
+			end
+			self.tiles[pos.x][pos.y] = tile
 		end
-
-		self.tiles = message.tiles
 	end,
 	["set_tile_color"] = function (self, message)
-		local pos = message.position
-		local tile = self.tiles[pos]
-		go.set("#"..tile.."/".."sprite", "tint", message.color)
+		local pos = hexagon_geometry.cube_to_axial(message.position)
+		local tile = self.tiles[pos.x][pos.y]
+		local tile_sprite_url = msg.url(nil,tile,"sprite")
+		go.set(tile_sprite_url, "tint", message.color)
 	end
 }
 
