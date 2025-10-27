@@ -1,3 +1,5 @@
+local hexagon_geometry = require("hexagon.resources.hex_geometry")
+
 function init(self)
 	self.tiles = {}
 end
@@ -14,18 +16,32 @@ function update(self, dt)
 	-- Remove this function if not needed
 end
 
-function fixed_update(self, dt)
-	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
-	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
-	-- Physics section of game.project
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
+local message_functions = 
+{
+	["set_tiles"] = function (self,message)
+		local size = message.tiles[1];
+		for i = 2,#message.tiles,1 do
+			local tile = message.tiles[i]
+			local pos = hexagon_geometry.cube_to_axial(hexagon_geometry.pixel_to_hex(go.get_position(tile), size))
+			if self.tiles[pos.x] == nil then
+				self.tiles[pos.x] = {}
+			end
+			self.tiles[pos.x][pos.y] = tile
+		end
+	end,
+	["set_tile_color"] = function (self, message)
+		local pos = hexagon_geometry.cube_to_axial(message.position)
+		local tile = self.tiles[pos.x][pos.y]
+		local tile_sprite_url = msg.url(nil,tile,"sprite")
+		go.set(tile_sprite_url, "tint", message.color)
+	end
+}
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("set_tiles") then
-		self.tiles = message.tiles
+	for key, value in pairs(message_functions) do
+		if message_id == hash(key) then
+			message_functions[key](self,message)
+		end
 	end
 end
 

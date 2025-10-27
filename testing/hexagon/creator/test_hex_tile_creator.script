@@ -2,6 +2,7 @@ local large_grids = require("hexagon.grid_maps.large")
 
 function callback(object)
 	go.set_position(vmath.vector3(400,400,0),object)
+	msg.post(object, "set_tile_color", {position = vmath.vector3(0,-1,1),color = vmath.vector4(1,0,0,1)})
 end
 
 function init(self)

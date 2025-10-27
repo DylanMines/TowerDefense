@@ -122,8 +122,8 @@ function M.pixel_to_hex(pixel, size, offset) --offset is the center, in pixels. 
 
     pixel = pixel - offset
 
-    pixel.x = pixel.x / size.x
-    pixel.y = pixel.y / size.y
+    pixel.x = pixel.x / size
+    pixel.y = pixel.y / size
 
     --local vector = vmath.vector3(pixel.x * ORIENTATION.b0, pixel.y * ORIENTATION.b1, pixel.x * ORIENTATION.b2 + pixel.y * ORIENTATION.b3)
     local vector = matrix_multiply(pixel, {ORIENTATION.b0,ORIENTATION.b1,ORIENTATION.b2,ORIENTATION.b3})
