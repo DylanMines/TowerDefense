@@ -1,7 +1,7 @@
 name: "main"
 instances {
   id: "BuildingOutline"
-  prototype: "/Building/Station.go"
+  prototype: "/tower/object/tower.go"
 }
 instances {
   id: "hex_grid_creator"
@@ -102,7 +102,7 @@ embedded_instances {
   "embedded_components {\n"
   "  id: \"towerFactory\"\n"
   "  type: \"factory\"\n"
-  "  data: \"prototype: \\\"/Building/Station.go\\\"\\n"
+  "  data: \"prototype: \\\"/tower/object/tower.go\\\"\\n"
   "\"\n"
   "}\n"
   ""
