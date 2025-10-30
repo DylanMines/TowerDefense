@@ -1,0 +1,22 @@
+images {
+  image: "/tower/resources/images/range.png"
+}
+images {
+  image: "/tower/resources/images/Level 1.png"
+}
+images {
+  image: "/tower/resources/images/Level 2.png"
+}
+images {
+  image: "/tower/resources/images/Level 3.png"
+}
+images {
+  image: "/tower/resources/images/Level 4.png"
+}
+images {
+  image: "/tower/resources/images/Level 5.png"
+}
+images {
+  image: "/tower/resources/images/Level 6.png"
+}
+extrude_borders: 2
