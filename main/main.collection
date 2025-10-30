@@ -51,7 +51,7 @@ embedded_instances {
   id: "gui"
   data: "components {\n"
   "  id: \"build\"\n"
-  "  component: \"/Gui/build.gui\"\n"
+  "  component: \"/gui/build.gui\"\n"
   "}\n"
   ""
 }
