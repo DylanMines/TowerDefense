@@ -1,4 +1,4 @@
-script: "/Gui/build.gui_script"
+script: "/gui/build.gui_script"
 fonts {
   name: "system_font"
   font: "/builtins/fonts/debug/always_on_top.font"
