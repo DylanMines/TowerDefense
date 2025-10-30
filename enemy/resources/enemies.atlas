@@ -1,11 +1,11 @@
 images {
-  image: "/enemy/resources/Regular_Enemy.png"
+  image: "/enemy/resources/images/Regular_Enemy.png"
 }
 images {
-  image: "/enemy/resources/Fast_Enemy.png"
+  image: "/enemy/resources/images/Fast_Enemy.png"
 }
 images {
-  image: "/enemy/resources/Damage_Enemy.png"
+  image: "/enemy/resources/images/Damage_Enemy.png"
 }
 animations {
   id: "Enemy"
