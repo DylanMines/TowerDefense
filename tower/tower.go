@@ -1,5 +1,13 @@
+components {
+  id: "tower"
+  component: "/tower/tower.script"
+}
+components {
+  id: "tower_window"
+  component: "/tower/tower.gui"
+}
 embedded_components {
-  id: "Tower"
+  id: "sprite"
   type: "sprite"
   data: "default_animation: \"Level 1\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
@@ -13,7 +21,7 @@ embedded_components {
   }
 }
 embedded_components {
-  id: "Range"
+  id: "range"
   type: "sprite"
   data: "default_animation: \"range\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
