@@ -25,4 +25,3 @@ max_emitter_count = 1024
 
 [factory]
 max_count = 512
-
