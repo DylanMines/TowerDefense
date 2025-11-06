@@ -29,7 +29,7 @@ if [[ ! -f bob.jar ]]; then
 fi
 
 echo "Running bob.jar"
-java -jar bob.jar --variant=headless build
+java -jar bob.jar --variant=debug --settings testing/testing.settings clean build
 
 echo "Starting dmengine_headless"
-./dmengine_headless --config=bootstrap.main_collection=${DEFOLD_BOOTSTRAP_COLLECTION}
+./dmengine_headless
