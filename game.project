@@ -31,3 +31,6 @@ max_emitter_count = 1024
 [factory]
 max_count = 512
 
+[input]
+game_binding = /builtins/input/all.input_bindingc
+
