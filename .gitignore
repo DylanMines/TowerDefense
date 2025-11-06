@@ -5,3 +5,5 @@ Thumbs.db
 /.defold/api
 /.editor_settings
 /.vscode
+dmengine_headless
+bob.jar
