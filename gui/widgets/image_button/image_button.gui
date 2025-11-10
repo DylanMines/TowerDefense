@@ -1,0 +1,65 @@
+textures {
+  name: "gui"
+  texture: "/gui/resources/gui.atlas"
+}
+nodes {
+  size {
+    x: 100.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  visible: false
+}
+nodes {
+  position {
+    z: -1.0
+  }
+  size {
+    x: 85.0
+    y: 85.0
+  }
+  type: TYPE_BOX
+  id: "background"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.7
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  scale {
+    x: 0.5
+    y: 0.5
+  }
+  size {
+    x: 85.0
+    y: 85.0
+  }
+  type: TYPE_BOX
+  id: "image"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  size {
+    x: 100.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  texture: "gui/ui_border"
+  id: "border"
+  parent: "root"
+  inherit_alpha: true
+  slice9 {
+    x: 15.0
+    y: 15.0
+    z: 15.0
+    w: 15.0
+  }
+  clipping_inverted: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
