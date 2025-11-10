@@ -1,0 +1,7 @@
+images {
+  image: "/gui/resources/ui_border.png"
+}
+images {
+  image: "/gui/resources/close.png"
+}
+extrude_borders: 2
