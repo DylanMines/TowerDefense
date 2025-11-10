@@ -1,0 +1,41 @@
+name: "tower"
+instances {
+  id: "tower"
+  prototype: "/tower/tower.go"
+}
+scale_along_z: 0
+embedded_instances {
+  id: "gui"
+  data: "components {\n"
+  "  id: \"tower_gui\"\n"
+  "  component: \"/tower/gui/tower_gui.gui\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "range"
+  data: "embedded_components {\n"
+  "  id: \"range\"\n"
+  "  type: \"sprite\"\n"
+  "  data: \"default_animation: \\\"range\\\"\\n"
+  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
+  "textures {\\n"
+  "  sampler: \\\"texture_sampler\\\"\\n"
+  "  texture: \\\"/tower/resources/tower_images.atlas\\\"\\n"
+  "}\\n"
+  "\"\n"
+  "}\n"
+  ""
+  scale3 {
+    x: 0.5
+    y: 0.5
+  }
+}
+embedded_instances {
+  id: "controller"
+  data: "components {\n"
+  "  id: \"tower\"\n"
+  "  component: \"/tower/tower.script\"\n"
+  "}\n"
+  ""
+}

@@ -3,14 +3,6 @@ instances {
   id: "BuildingOutline"
   prototype: "/tower/tower.go"
 }
-instances {
-  id: "hex_grid_creator"
-  prototype: "/hexagon/creator/hex_grid_creator.go"
-}
-instances {
-  id: "test_tile_creator"
-  prototype: "/testing/hexagon/creator/test_tile_creator.go"
-}
 scale_along_z: 0
 embedded_instances {
   id: "map"
@@ -100,9 +92,9 @@ embedded_instances {
   "  component: \"/Building/build.script\"\n"
   "}\n"
   "embedded_components {\n"
-  "  id: \"towerFactory\"\n"
-  "  type: \"factory\"\n"
-  "  data: \"prototype: \\\"/tower/tower.go\\\"\\n"
+  "  id: \"collectionfactory\"\n"
+  "  type: \"collectionfactory\"\n"
+  "  data: \"prototype: \\\"/tower/tower.collection\\\"\\n"
   "\"\n"
   "}\n"
   ""
@@ -110,4 +102,12 @@ embedded_instances {
     x: 0.9
     y: 0.9
   }
+}
+embedded_instances {
+  id: "towerui_test"
+  data: "components {\n"
+  "  id: \"tower_gui\"\n"
+  "  component: \"/tower/gui/tower_gui.gui\"\n"
+  "}\n"
+  ""
 }
