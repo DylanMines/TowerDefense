@@ -1,0 +1,224 @@
+fonts {
+  name: "always_on_top"
+  font: "/builtins/fonts/debug/always_on_top.font"
+}
+fonts {
+  name: "druid_text_regular"
+  font: "/druid/fonts/druid_text_regular.font"
+}
+fonts {
+  name: "druid_text_bold"
+  font: "/druid/fonts/druid_text_bold.font"
+}
+textures {
+  name: "druid"
+  texture: "/druid/druid.atlas"
+}
+textures {
+  name: "gui"
+  texture: "/gui/resources/gui.atlas"
+}
+nodes {
+  position {
+    x: 960.0
+    y: 540.0
+  }
+  size {
+    x: 1920.0
+    y: 1080.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  yanchor: YANCHOR_TOP
+  inherit_alpha: true
+  visible: false
+}
+nodes {
+  size {
+    x: 1905.0
+    y: 1065.0
+  }
+  color {
+    x: 0.2
+    y: 0.2
+    z: 0.2
+  }
+  type: TYPE_BOX
+  id: "background"
+  parent: "root"
+  alpha: 0.9
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 1920.0
+    y: 1080.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  texture: "gui/ui_border"
+  id: "border_main"
+  parent: "root"
+  slice9 {
+    x: 15.0
+    y: 15.0
+    z: 15.0
+    w: 15.0
+  }
+}
+nodes {
+  position {
+    y: 492.0
+  }
+  size {
+    x: 1920.0
+    y: 96.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  texture: "gui/ui_border"
+  id: "border_top"
+  parent: "root"
+  slice9 {
+    x: 15.0
+    y: 15.0
+    z: 15.0
+    w: 15.0
+  }
+}
+nodes {
+  position {
+    x: 912.0
+  }
+  size {
+    x: 96.0
+    y: 1080.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  texture: "gui/ui_border"
+  id: "border_side"
+  parent: "root"
+  slice9 {
+    x: 15.0
+    y: 15.0
+    z: 15.0
+    w: 15.0
+  }
+}
+nodes {
+  position {
+    x: 912.0
+    y: 492.0
+  }
+  type: TYPE_TEMPLATE
+  id: "close"
+  parent: "root"
+  template: "/gui/widgets/image_button/image_button.gui"
+}
+nodes {
+  size {
+    x: 96.0
+    y: 96.0
+  }
+  type: TYPE_BOX
+  id: "close/root"
+  parent: "close"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 81.0
+    y: 81.0
+  }
+  color {
+    x: 0.502
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "close/background"
+  parent: "close/root"
+  inherit_alpha: true
+  overridden_fields: 4
+  overridden_fields: 5
+  overridden_fields: 21
+  template_node_child: true
+}
+nodes {
+  scale {
+    x: 0.5
+    y: 0.5
+  }
+  color {
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  texture: "gui/close"
+  id: "close/image"
+  parent: "close/root"
+  overridden_fields: 3
+  overridden_fields: 5
+  overridden_fields: 9
+  overridden_fields: 38
+  overridden_fields: 46
+  template_node_child: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 96.0
+    y: 96.0
+  }
+  color {
+    x: 0.502
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "close/border"
+  parent: "close/root"
+  overridden_fields: 4
+  overridden_fields: 5
+  template_node_child: true
+}
+nodes {
+  position {
+    y: 492.0
+  }
+  scale {
+    x: 1.4
+    y: 1.4
+  }
+  size {
+    x: 250.0
+    y: 50.0
+  }
+  type: TYPE_TEXT
+  text: "Window Title"
+  font: "druid_text_bold"
+  id: "title"
+  parent: "root"
+}
+layers {
+  name: "front"
+}
+layers {
+  name: "back"
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
