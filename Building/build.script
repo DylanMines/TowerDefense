@@ -49,12 +49,14 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("click") and action.pressed and self.buildMode == true then --place a tower
+	if action_id == hash("mouse_button_1") and action.pressed and self.buildMode == true then --place a tower
+		print("placing a tower")
 		self.buildMode = false;
 		msg.post(OUTLINE_URL,"disable")
 		table.insert(self.towers, self.gridSpace)
-		local id = factory.create("/towers#towerFactory", vmath.vector3(self.gridSpace.x*GRID_SIZE,self.gridSpace.y*GRID_SIZE,0))
-		msg.post(msg.url(nil, id, "range"),"disable")
+		local ids = collectionfactory.create("/towers#collectionfactory", vmath.vector3(self.gridSpace.x*GRID_SIZE,self.gridSpace.y*GRID_SIZE,0))
+		
+		msg.post(ids[hash("/range")],"disable")
 	end
 	if action_id == nil and self.buildMode then --Move the outline
 		local gridSpace = getGridSpace(action.x, action.y)
