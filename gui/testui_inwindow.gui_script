@@ -1,0 +1,30 @@
+local druid = require("druid.druid")
+local window = require("gui.widgets.window.standard_window")
+
+function init(self)
+    self.druid = druid.new(self)
+
+    local window_gui_scene = "standard_window"
+    self.window = self.druid:new_widget(window, window_gui_scene)
+    self.window:set_title("testing window")
+
+    self.window.close.on_click:subscribe(function()
+        print("closing - monarch will handle this")
+    end)
+end
+
+function final(self)
+    self.druid:final()
+end
+
+function update(self, dt)
+    self.druid:update(dt)
+end
+
+function on_message(self, message_id, message, sender)
+    self.druid:on_message(message_id, message, sender)
+end
+
+function on_input(self, action_id, action)
+    return self.druid:on_input(action_id, action)
+end
