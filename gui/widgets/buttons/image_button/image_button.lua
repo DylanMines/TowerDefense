@@ -3,9 +3,9 @@
 
 local druid = require("druid.druid")
 local panthera = require("panthera.panthera")
-local animation = require("gui.widgets.buttons.image_button_overlay.image_button_overlay_panthera")
+local animation = require("gui.widgets.buttons.image_button.image_button_panthera")
 
----@class widget.image_button_overlay: druid.widget
+---@class widget.image_button: druid.widget
 local M = {}
 
 

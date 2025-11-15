@@ -69,6 +69,30 @@ nodes {
 }
 nodes {
   type: TYPE_BOX
+  id: "standard_window/close/content"
+  parent: "standard_window/close/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "standard_window/close/content_text"
+  parent: "standard_window/close/content"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/close/label_image"
+  parent: "standard_window/close/content"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "standard_window/close/label_test"
+  parent: "standard_window/close/label_image"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
   id: "standard_window/close/border"
   parent: "standard_window/close/root"
   template_node_child: true
@@ -176,7 +200,7 @@ nodes {
   type: TYPE_TEMPLATE
   id: "image_button_overlay"
   inherit_alpha: true
-  template: "/gui/widgets/buttons/image_button_overlay/image_button_overlay.gui"
+  template: "/gui/widgets/buttons/image_button/image_button.gui"
 }
 nodes {
   size {
@@ -277,96 +301,30 @@ nodes {
   type: TYPE_TEMPLATE
   id: "text_button_select"
   inherit_alpha: true
-  template: "/gui/widgets/buttons/text_button_radio/text_button_radio.gui"
+  template: "/gui/widgets/buttons/text_button/text_button.gui"
 }
 nodes {
-  type: TYPE_TEMPLATE
-  id: "text_button_select/text_button"
+  type: TYPE_BOX
+  id: "text_button_select/root"
   parent: "text_button_select"
   template_node_child: true
 }
 nodes {
   type: TYPE_BOX
-  id: "text_button_select/text_button/root"
-  parent: "text_button_select/text_button"
+  id: "text_button_select/background"
+  parent: "text_button_select/root"
   template_node_child: true
 }
 nodes {
   type: TYPE_BOX
-  id: "text_button_select/text_button/background"
-  parent: "text_button_select/text_button/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_select/text_button/border"
-  parent: "text_button_select/text_button/root"
+  id: "text_button_select/border"
+  parent: "text_button_select/root"
   template_node_child: true
 }
 nodes {
   type: TYPE_TEXT
-  id: "text_button_select/text_button/label"
-  parent: "text_button_select/text_button/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_TEMPLATE
-  id: "text_button_select/text_button1"
-  parent: "text_button_select"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_select/text_button1/root"
-  parent: "text_button_select/text_button1"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_select/text_button1/background"
-  parent: "text_button_select/text_button1/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_select/text_button1/border"
-  parent: "text_button_select/text_button1/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_TEXT
-  id: "text_button_select/text_button1/label"
-  parent: "text_button_select/text_button1/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_TEMPLATE
-  id: "text_button_select/text_button2"
-  parent: "text_button_select"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_select/text_button2/root"
-  parent: "text_button_select/text_button2"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_select/text_button2/background"
-  parent: "text_button_select/text_button2/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_select/text_button2/border"
-  parent: "text_button_select/text_button2/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_TEXT
-  id: "text_button_select/text_button2/label"
-  parent: "text_button_select/text_button2/root"
+  id: "text_button_select/label"
+  parent: "text_button_select/root"
   template_node_child: true
 }
 material: "/builtins/materials/gui.material"

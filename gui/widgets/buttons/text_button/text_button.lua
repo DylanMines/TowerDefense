@@ -4,9 +4,9 @@
 ---
 --local druid = require("druid.druid")
 local panthera = require("panthera.panthera")
-local animation = require("gui.widgets.buttons.text_button_radio.text_button_radio_panthera")
+local animation = require("gui.widgets.buttons.text_button.text_button_panthera")
 
----@class widget.text_button_radio: druid.widget
+---@class widget.text_button: druid.widget
 local M = {}
 
 function M:init()
@@ -21,6 +21,8 @@ function M:init()
 	self.button:set_animations_disabled()
 	self.animation = panthera.create_gui(animation,self:get_template())
 	self.selected = false
+
+	
 
 	---will investigate with the radio buttons module 
 	---May be useful

@@ -107,7 +107,7 @@ nodes {
   type: TYPE_TEMPLATE
   id: "close"
   parent: "root"
-  template: "/gui/widgets/buttons/image_button.gui"
+  template: "/gui/widgets/buttons/image_button/image_button.gui"
 }
 nodes {
   size {
@@ -123,7 +123,7 @@ nodes {
 nodes {
   size {
     x: 86.0
-    y: 81.0
+    y: 86.0
   }
   color {
     x: 0.502
@@ -133,32 +133,46 @@ nodes {
   type: TYPE_BOX
   id: "close/background"
   parent: "close/root"
-  inherit_alpha: true
   overridden_fields: 4
   overridden_fields: 5
-  overridden_fields: 21
   template_node_child: true
 }
 nodes {
-  scale {
-    x: 0.5
-    y: 0.5
-  }
   color {
     y: 0.0
     z: 0.0
   }
   type: TYPE_BOX
-  texture: "gui/close"
   id: "close/image"
   parent: "close/root"
-  overridden_fields: 3
   overridden_fields: 5
-  overridden_fields: 9
-  overridden_fields: 38
-  overridden_fields: 46
   template_node_child: true
-  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  type: TYPE_BOX
+  id: "close/content"
+  parent: "close/root"
+  overridden_fields: 45
+  template_node_child: true
+  enabled: false
+}
+nodes {
+  type: TYPE_TEXT
+  id: "close/content_text"
+  parent: "close/content"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "close/label_image"
+  parent: "close/content"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "close/label_test"
+  parent: "close/label_image"
+  template_node_child: true
 }
 nodes {
   scale {
@@ -166,8 +180,8 @@ nodes {
     y: 1.5
   }
   size {
-    x: 67.0
-    y: 67.0
+    x: 68.0
+    y: 68.0
   }
   color {
     x: 0.502
