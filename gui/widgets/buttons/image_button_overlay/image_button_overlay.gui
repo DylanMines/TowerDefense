@@ -1,0 +1,138 @@
+fonts {
+  name: "druid_text_regular"
+  font: "/druid/fonts/druid_text_regular.font"
+}
+textures {
+  name: "gui"
+  texture: "/gui/resources/gui.atlas"
+}
+nodes {
+  size {
+    x: 100.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  visible: false
+}
+nodes {
+  position {
+    z: -1.0
+  }
+  size {
+    x: 90.0
+    y: 90.0
+  }
+  type: TYPE_BOX
+  id: "background"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.7
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  scale {
+    x: 0.5
+    y: 0.5
+  }
+  type: TYPE_BOX
+  texture: "gui/close"
+  id: "image"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 85.0
+    y: 85.0
+  }
+  color {
+    x: 0.302
+    y: 0.302
+    z: 0.302
+  }
+  type: TYPE_BOX
+  id: "content"
+  parent: "root"
+  inherit_alpha: true
+  clipping_mode: CLIPPING_MODE_STENCIL
+  alpha: 0.0
+}
+nodes {
+  position {
+    y: -21.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+  }
+  size {
+    x: 150.0
+    y: 75.0
+  }
+  type: TYPE_TEXT
+  text: "pretend this is an explosion"
+  font: "druid_text_regular"
+  id: "content_text"
+  parent: "content"
+  alpha: 0.0
+}
+nodes {
+  position {
+    x: -16.0
+    y: -61.0
+  }
+  size {
+    x: 32.0
+    y: 32.0
+  }
+  color {
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "label_image"
+  parent: "content"
+  alpha: 0.0
+}
+nodes {
+  position {
+    x: 31.0
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+  }
+  size {
+    x: 100.0
+    y: 80.0
+  }
+  type: TYPE_TEXT
+  text: "+75"
+  font: "druid_text_regular"
+  id: "label_test"
+  parent: "label_image"
+  alpha: 0.0
+}
+nodes {
+  size {
+    x: 100.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  texture: "gui/ui_border"
+  id: "border"
+  parent: "root"
+  inherit_alpha: true
+  slice9 {
+    x: 15.0
+    y: 15.0
+    z: 15.0
+    w: 15.0
+  }
+  clipping_inverted: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
