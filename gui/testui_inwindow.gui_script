@@ -1,5 +1,7 @@
 local druid = require("druid.druid")
 local window = require("gui.widgets.window.standard_window")
+local overlay = require("gui.widgets.buttons.image_button_overlay.image_button_overlay")
+local text_button = require("gui.widgets.buttons.text_button_radio.text_button_radio")
 
 function init(self)
     self.druid = druid.new(self)
@@ -7,6 +9,9 @@ function init(self)
     local window_gui_scene = "standard_window"
     self.window = self.druid:new_widget(window, window_gui_scene)
     self.window:set_title("testing window")
+
+    self.overlay = self.druid:new_widget(overlay, "image_button_overlay")
+    self.text_button = self.druid:new_widget(text_button, "text_button_select")
 
     self.window.close.on_click:subscribe(function()
         print("closing - monarch will handle this")

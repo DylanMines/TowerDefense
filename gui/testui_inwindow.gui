@@ -4,6 +4,10 @@ fonts {
   font: "/druid/fonts/druid_text_regular.font"
 }
 nodes {
+  position {
+    x: 960.0
+    y: 540.0
+  }
   type: TYPE_TEMPLATE
   id: "standard_window"
   inherit_alpha: true
@@ -88,6 +92,7 @@ nodes {
   id: "root"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
+  enabled: false
   visible: false
 }
 nodes {
@@ -162,6 +167,141 @@ nodes {
   inherit_alpha: true
   outline_alpha: 0.0
   shadow_alpha: 0.0
+}
+nodes {
+  position {
+    x: 731.0
+    y: 473.0
+  }
+  type: TYPE_TEMPLATE
+  id: "image_button_overlay"
+  inherit_alpha: true
+  template: "/gui/widgets/buttons/image_button_overlay/image_button_overlay.gui"
+}
+nodes {
+  size {
+    x: 200.0
+    y: 200.0
+  }
+  type: TYPE_BOX
+  id: "image_button_overlay/root"
+  parent: "image_button_overlay"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 190.0
+    y: 190.0
+  }
+  type: TYPE_BOX
+  id: "image_button_overlay/background"
+  parent: "image_button_overlay/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "image_button_overlay/image"
+  parent: "image_button_overlay/root"
+  overridden_fields: 3
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 185.0
+    y: 185.0
+  }
+  type: TYPE_BOX
+  id: "image_button_overlay/content"
+  parent: "image_button_overlay/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  position {
+    y: -5.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+  }
+  size {
+    x: 300.0
+    y: 150.0
+  }
+  type: TYPE_TEXT
+  text: "button!"
+  id: "image_button_overlay/content_text"
+  parent: "image_button_overlay/content"
+  overridden_fields: 1
+  overridden_fields: 3
+  overridden_fields: 4
+  overridden_fields: 8
+  overridden_fields: 18
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "image_button_overlay/label_image"
+  parent: "image_button_overlay/content"
+  template_node_child: true
+}
+nodes {
+  scale {
+    x: 0.4
+    y: 0.4
+  }
+  type: TYPE_TEXT
+  id: "image_button_overlay/label_test"
+  parent: "image_button_overlay/label_image"
+  overridden_fields: 3
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 200.0
+  }
+  type: TYPE_BOX
+  id: "image_button_overlay/border"
+  parent: "image_button_overlay/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 1185.0
+    y: 530.0
+  }
+  type: TYPE_TEMPLATE
+  id: "text_button_select"
+  inherit_alpha: true
+  template: "/gui/widgets/buttons/text_button_radio/text_button_radio.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_select/root"
+  parent: "text_button_select"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_select/background"
+  parent: "text_button_select/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_select/border"
+  parent: "text_button_select/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "text_button_select/label"
+  parent: "text_button_select/root"
+  template_node_child: true
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT
