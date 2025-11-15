@@ -31,8 +31,8 @@ nodes {
 }
 nodes {
   size {
-    x: 1905.0
-    y: 1065.0
+    x: 1910.0
+    y: 1070.0
   }
   color {
     x: 0.2
@@ -49,11 +49,6 @@ nodes {
   size {
     x: 1920.0
     y: 1080.0
-  }
-  color {
-    x: 0.0
-    y: 0.0
-    z: 0.0
   }
   type: TYPE_BOX
   texture: "gui/ui_border"
@@ -74,11 +69,6 @@ nodes {
     x: 1920.0
     y: 96.0
   }
-  color {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
   type: TYPE_BOX
   texture: "gui/ui_border"
   id: "border_top"
@@ -97,11 +87,6 @@ nodes {
   size {
     x: 96.0
     y: 1080.0
-  }
-  color {
-    x: 0.0
-    y: 0.0
-    z: 0.0
   }
   type: TYPE_BOX
   texture: "gui/ui_border"
@@ -122,7 +107,7 @@ nodes {
   type: TYPE_TEMPLATE
   id: "close"
   parent: "root"
-  template: "/gui/widgets/image_button/image_button.gui"
+  template: "/gui/widgets/buttons/image_button.gui"
 }
 nodes {
   size {
@@ -137,7 +122,7 @@ nodes {
 }
 nodes {
   size {
-    x: 81.0
+    x: 86.0
     y: 81.0
   }
   color {
@@ -176,9 +161,13 @@ nodes {
   size_mode: SIZE_MODE_AUTO
 }
 nodes {
+  scale {
+    x: 1.5
+    y: 1.5
+  }
   size {
-    x: 96.0
-    y: 96.0
+    x: 67.0
+    y: 67.0
   }
   color {
     x: 0.502
@@ -188,6 +177,7 @@ nodes {
   type: TYPE_BOX
   id: "close/border"
   parent: "close/root"
+  overridden_fields: 3
   overridden_fields: 4
   overridden_fields: 5
   template_node_child: true
