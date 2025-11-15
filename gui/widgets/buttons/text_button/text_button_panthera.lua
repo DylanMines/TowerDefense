@@ -105,7 +105,7 @@ return {
             fps = 60,
             gizmo_steps = {
             },
-            gui_path = "gui/widgets/buttons/text_button_radio/text_button_radio.gui",
+            gui_path = "gui/widgets/buttons/text_button/text_button.gui",
             layers = {
             },
             settings = {

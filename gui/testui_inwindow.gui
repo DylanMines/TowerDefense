@@ -280,27 +280,93 @@ nodes {
   template: "/gui/widgets/buttons/text_button_radio/text_button_radio.gui"
 }
 nodes {
-  type: TYPE_BOX
-  id: "text_button_select/root"
+  type: TYPE_TEMPLATE
+  id: "text_button_select/text_button"
   parent: "text_button_select"
   template_node_child: true
 }
 nodes {
   type: TYPE_BOX
-  id: "text_button_select/background"
-  parent: "text_button_select/root"
+  id: "text_button_select/text_button/root"
+  parent: "text_button_select/text_button"
   template_node_child: true
 }
 nodes {
   type: TYPE_BOX
-  id: "text_button_select/border"
-  parent: "text_button_select/root"
+  id: "text_button_select/text_button/background"
+  parent: "text_button_select/text_button/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_select/text_button/border"
+  parent: "text_button_select/text_button/root"
   template_node_child: true
 }
 nodes {
   type: TYPE_TEXT
-  id: "text_button_select/label"
-  parent: "text_button_select/root"
+  id: "text_button_select/text_button/label"
+  parent: "text_button_select/text_button/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEMPLATE
+  id: "text_button_select/text_button1"
+  parent: "text_button_select"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_select/text_button1/root"
+  parent: "text_button_select/text_button1"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_select/text_button1/background"
+  parent: "text_button_select/text_button1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_select/text_button1/border"
+  parent: "text_button_select/text_button1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "text_button_select/text_button1/label"
+  parent: "text_button_select/text_button1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEMPLATE
+  id: "text_button_select/text_button2"
+  parent: "text_button_select"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_select/text_button2/root"
+  parent: "text_button_select/text_button2"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_select/text_button2/background"
+  parent: "text_button_select/text_button2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_select/text_button2/border"
+  parent: "text_button_select/text_button2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "text_button_select/text_button2/label"
+  parent: "text_button_select/text_button2/root"
   template_node_child: true
 }
 material: "/builtins/materials/gui.material"
