@@ -1,7 +1,9 @@
 local deftest = require "deftest.deftest"
 local test_hex_geometry = require "testing.hexagon.resources.test_hex_geometry"
+local test_radio = require "testing.gui.widgets.test_radio"
 
 function init(self)
     deftest.add(test_hex_geometry)
+    deftest.add(test_radio)
     deftest.run()
 end

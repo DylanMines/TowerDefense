@@ -4,6 +4,7 @@
 local druid = require("druid.druid")
 local panthera = require("panthera.panthera")
 local animation = require("gui.widgets.buttons.image_button.image_button_panthera")
+local event = require("event.event")
 
 ---@class widget.image_button: druid.widget
 local M = {}
