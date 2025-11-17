@@ -198,7 +198,7 @@ nodes {
     y: 473.0
   }
   type: TYPE_TEMPLATE
-  id: "image_button_overlay"
+  id: "image_button"
   inherit_alpha: true
   template: "/gui/widgets/buttons/image_button/image_button.gui"
 }
@@ -208,8 +208,8 @@ nodes {
     y: 200.0
   }
   type: TYPE_BOX
-  id: "image_button_overlay/root"
-  parent: "image_button_overlay"
+  id: "image_button/root"
+  parent: "image_button"
   overridden_fields: 4
   template_node_child: true
 }
@@ -219,15 +219,15 @@ nodes {
     y: 190.0
   }
   type: TYPE_BOX
-  id: "image_button_overlay/background"
-  parent: "image_button_overlay/root"
+  id: "image_button/background"
+  parent: "image_button/root"
   overridden_fields: 4
   template_node_child: true
 }
 nodes {
   type: TYPE_BOX
-  id: "image_button_overlay/image"
-  parent: "image_button_overlay/root"
+  id: "image_button/image"
+  parent: "image_button/root"
   overridden_fields: 3
   template_node_child: true
 }
@@ -237,8 +237,8 @@ nodes {
     y: 185.0
   }
   type: TYPE_BOX
-  id: "image_button_overlay/content"
-  parent: "image_button_overlay/root"
+  id: "image_button/content"
+  parent: "image_button/root"
   overridden_fields: 4
   template_node_child: true
 }
@@ -256,8 +256,8 @@ nodes {
   }
   type: TYPE_TEXT
   text: "button!"
-  id: "image_button_overlay/content_text"
-  parent: "image_button_overlay/content"
+  id: "image_button/content_text"
+  parent: "image_button/content"
   overridden_fields: 1
   overridden_fields: 3
   overridden_fields: 4
@@ -267,8 +267,8 @@ nodes {
 }
 nodes {
   type: TYPE_BOX
-  id: "image_button_overlay/label_image"
-  parent: "image_button_overlay/content"
+  id: "image_button/label_image"
+  parent: "image_button/content"
   template_node_child: true
 }
 nodes {
@@ -277,8 +277,8 @@ nodes {
     y: 0.4
   }
   type: TYPE_TEXT
-  id: "image_button_overlay/label_test"
-  parent: "image_button_overlay/label_image"
+  id: "image_button/label_test"
+  parent: "image_button/label_image"
   overridden_fields: 3
   template_node_child: true
 }
@@ -288,8 +288,8 @@ nodes {
     y: 200.0
   }
   type: TYPE_BOX
-  id: "image_button_overlay/border"
-  parent: "image_button_overlay/root"
+  id: "image_button/border"
+  parent: "image_button/root"
   overridden_fields: 4
   template_node_child: true
 }
@@ -299,32 +299,158 @@ nodes {
     y: 530.0
   }
   type: TYPE_TEMPLATE
-  id: "text_button_select"
+  id: "text_button_1"
   inherit_alpha: true
   template: "/gui/widgets/buttons/text_button/text_button.gui"
 }
 nodes {
   type: TYPE_BOX
-  id: "text_button_select/root"
-  parent: "text_button_select"
+  id: "text_button_1/root"
+  parent: "text_button_1"
   template_node_child: true
 }
 nodes {
   type: TYPE_BOX
-  id: "text_button_select/background"
-  parent: "text_button_select/root"
+  id: "text_button_1/background"
+  parent: "text_button_1/root"
   template_node_child: true
 }
 nodes {
   type: TYPE_BOX
-  id: "text_button_select/border"
-  parent: "text_button_select/root"
+  id: "text_button_1/border"
+  parent: "text_button_1/root"
   template_node_child: true
 }
 nodes {
   type: TYPE_TEXT
-  id: "text_button_select/label"
-  parent: "text_button_select/root"
+  id: "text_button_1/label"
+  parent: "text_button_1/root"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 1421.0
+    y: 530.0
+  }
+  type: TYPE_TEMPLATE
+  id: "text_button_2"
+  inherit_alpha: true
+  template: "/gui/widgets/buttons/text_button/text_button.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_2/root"
+  parent: "text_button_2"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_2/background"
+  parent: "text_button_2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_2/border"
+  parent: "text_button_2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "text_button_2/label"
+  parent: "text_button_2/root"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 351.0
+    y: 182.0
+  }
+  type: TYPE_TEMPLATE
+  id: "property_checkbox_1"
+  inherit_alpha: true
+  template: "/druid/widget/properties_panel/properties/property_checkbox.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_1/root"
+  parent: "property_checkbox_1"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "property_checkbox_1/text_name"
+  parent: "property_checkbox_1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_1/E_Anchor"
+  parent: "property_checkbox_1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_1/button"
+  parent: "property_checkbox_1/E_Anchor"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_1/icon"
+  parent: "property_checkbox_1/button"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_1/selected"
+  parent: "property_checkbox_1/button"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 351.0
+    y: 236.0
+  }
+  type: TYPE_TEMPLATE
+  id: "property_checkbox_2"
+  inherit_alpha: true
+  template: "/druid/widget/properties_panel/properties/property_checkbox.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_2/root"
+  parent: "property_checkbox_2"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "property_checkbox_2/text_name"
+  parent: "property_checkbox_2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_2/E_Anchor"
+  parent: "property_checkbox_2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_2/button"
+  parent: "property_checkbox_2/E_Anchor"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_2/icon"
+  parent: "property_checkbox_2/button"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_2/selected"
+  parent: "property_checkbox_2/button"
   template_node_child: true
 }
 material: "/builtins/materials/gui.material"
