@@ -3,6 +3,7 @@ local event = require("event.event")
 ---@class radio_group
 ---@field state boolean[] 
 ---@field objects widget.radio_widget[]
+---@field on_state_changed event
 local M = {}
 
 ---@param objects widget.text_button[]
@@ -33,9 +34,11 @@ end
 ---@return nil --void funciton
 function M:on_select()
     local new_clicked = nil
+    local new_index = 0
     for index = 1, #self.objects do
 		if self.objects[index]:get_state() ~= self.state[index] then
 			new_clicked = index
+            new_index = index
 			break
 		end
 	end
@@ -45,7 +48,7 @@ function M:on_select()
 		self.state[index] = index == new_clicked
 	end
 
-    self.on_state_changed:trigger(new_clicked)
+    self.on_state_changed:trigger(new_index)
 end
   
 ---@return widget.radio_widget[]
