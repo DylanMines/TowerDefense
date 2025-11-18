@@ -198,11 +198,12 @@ nodes {
 }
 nodes {
   position {
+    x: -759.0
     y: 492.0
   }
   scale {
-    x: 1.4
-    y: 1.4
+    x: 1.5
+    y: 1.5
   }
   size {
     x: 250.0
@@ -213,6 +214,180 @@ nodes {
   font: "druid_text_bold"
   id: "title"
   parent: "root"
+}
+nodes {
+  position {
+    x: 710.0
+    y: 492.0
+  }
+  type: TYPE_TEMPLATE
+  id: "screen1"
+  parent: "root"
+  inherit_alpha: true
+  template: "/gui/widgets/buttons/text_button/text_button.gui"
+}
+nodes {
+  size {
+    x: 270.0
+    y: 96.0
+  }
+  type: TYPE_BOX
+  id: "screen1/root"
+  parent: "screen1"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 260.0
+    y: 86.0
+  }
+  type: TYPE_BOX
+  id: "screen1/background"
+  parent: "screen1/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 270.0
+    y: 96.0
+  }
+  type: TYPE_BOX
+  id: "screen1/border"
+  parent: "screen1/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 270.0
+    y: 96.0
+  }
+  type: TYPE_TEXT
+  text: "<text1>"
+  id: "screen1/label"
+  parent: "screen1/root"
+  overridden_fields: 3
+  overridden_fields: 4
+  overridden_fields: 8
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 420.0
+    y: 492.0
+  }
+  type: TYPE_TEMPLATE
+  id: "screen2"
+  parent: "root"
+  inherit_alpha: true
+  template: "/gui/widgets/buttons/text_button/text_button.gui"
+}
+nodes {
+  size {
+    x: 270.0
+    y: 96.0
+  }
+  type: TYPE_BOX
+  id: "screen2/root"
+  parent: "screen2"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 260.0
+    y: 86.0
+  }
+  type: TYPE_BOX
+  id: "screen2/background"
+  parent: "screen2/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 270.0
+    y: 96.0
+  }
+  type: TYPE_BOX
+  id: "screen2/border"
+  parent: "screen2/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 270.0
+    y: 96.0
+  }
+  type: TYPE_TEXT
+  text: "<text2>"
+  id: "screen2/label"
+  parent: "screen2/root"
+  overridden_fields: 3
+  overridden_fields: 4
+  overridden_fields: 8
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 130.0
+    y: 492.0
+  }
+  type: TYPE_TEMPLATE
+  id: "screen3"
+  parent: "root"
+  inherit_alpha: true
+  template: "/gui/widgets/buttons/text_button/text_button.gui"
+}
+nodes {
+  size {
+    x: 270.0
+    y: 96.0
+  }
+  type: TYPE_BOX
+  id: "screen3/root"
+  parent: "screen3"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 260.0
+    y: 86.0
+  }
+  type: TYPE_BOX
+  id: "screen3/background"
+  parent: "screen3/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 270.0
+    y: 96.0
+  }
+  type: TYPE_BOX
+  id: "screen3/border"
+  parent: "screen3/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 270.0
+    y: 96.0
+  }
+  type: TYPE_TEXT
+  text: "<text3>"
+  id: "screen3/label"
+  parent: "screen3/root"
+  overridden_fields: 3
+  overridden_fields: 4
+  overridden_fields: 8
+  template_node_child: true
 }
 layers {
   name: "front"

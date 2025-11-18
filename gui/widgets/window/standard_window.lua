@@ -1,24 +1,21 @@
----This is a template for a StandardWindow Druid widget.
----Instantiate this template with `druid.new_widget(widget_module, [template_id], [nodes])`.
----Read more about Druid Widgets here: ...
+local text_button = require("gui.widgets.buttons.text_button.text_button")
+local radio = require("gui.widgets.radio.radio")
 
 ---@class widget.standard_window: druid.widget
 local M = {}
 
 
 function M:init()
-	-- Now we have next functions to use here:
-	-- self:get_node([node_id]) -- Get node inside widget by id
-	-- self.druid to access Druid Instance API, like:
-	-- self.druid:new_button([node_id], [callback])
-	-- self.druid:new_text([node_id], [text])
-	-- And all functions from component.lua file
-
 	self.root = self:get_node("root")
 	self.close = self.druid:new_button("close/image", self.on_button, self)
     self.title = self.druid:new_text("title", "window title")
-end
 
+	self.screen_selections = {}
+	for i = 1, 3 do
+		table.insert(self.screen_selections, self.druid:new_widget(text_button, "screen"..i))
+	end
+	self.screen_group = radio.new(self.screen_selections, 1)
+end
 
 function M:on_button()
 	print("Root node", self.root)
