@@ -195,100 +195,207 @@ nodes {
 }
 nodes {
   position {
-    x: 960.0
-    y: 540.0
+    x: 912.0
+    y: 492.0
   }
   size {
-    x: 1920.0
-    y: 1080.0
+    x: 1824.0
+    y: 984.0
   }
   type: TYPE_BOX
-  id: "root"
+  id: "tab1"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 351.0
+    y: 182.0
+  }
+  type: TYPE_TEMPLATE
+  id: "property_checkbox_2"
+  parent: "tab1"
+  inherit_alpha: true
+  template: "/druid/widget/properties_panel/properties/property_checkbox.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_2/root"
+  parent: "property_checkbox_2"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "property_checkbox_2/text_name"
+  parent: "property_checkbox_2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_2/E_Anchor"
+  parent: "property_checkbox_2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_2/button"
+  parent: "property_checkbox_2/E_Anchor"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_2/icon"
+  parent: "property_checkbox_2/button"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_2/selected"
+  parent: "property_checkbox_2/button"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 351.0
+    y: 236.0
+  }
+  type: TYPE_TEMPLATE
+  id: "property_checkbox_1"
+  parent: "tab1"
+  inherit_alpha: true
+  template: "/druid/widget/properties_panel/properties/property_checkbox.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_1/root"
+  parent: "property_checkbox_1"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "property_checkbox_1/text_name"
+  parent: "property_checkbox_1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_1/E_Anchor"
+  parent: "property_checkbox_1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_1/button"
+  parent: "property_checkbox_1/E_Anchor"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_1/icon"
+  parent: "property_checkbox_1/button"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "property_checkbox_1/selected"
+  parent: "property_checkbox_1/button"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: -417.0
+    y: 282.0
+  }
+  type: TYPE_TEMPLATE
+  id: "text_button_2"
+  parent: "tab1"
+  inherit_alpha: true
+  template: "/gui/widgets/buttons/text_button/text_button.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_2/root"
+  parent: "text_button_2"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_2/background"
+  parent: "text_button_2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_2/border"
+  parent: "text_button_2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "text_button_2/label"
+  parent: "text_button_2/root"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: -181.0
+    y: 282.0
+  }
+  type: TYPE_TEMPLATE
+  id: "text_button_1"
+  parent: "tab1"
+  inherit_alpha: true
+  template: "/gui/widgets/buttons/text_button/text_button.gui"
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_1/root"
+  parent: "text_button_1"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_1/background"
+  parent: "text_button_1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "text_button_1/border"
+  parent: "text_button_1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "text_button_1/label"
+  parent: "text_button_1/root"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 912.0
+    y: 492.0
+  }
+  size {
+    x: 1824.0
+    y: 984.0
+  }
+  type: TYPE_BOX
+  id: "tab2"
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
   enabled: false
   visible: false
 }
 nodes {
-  size {
-    x: 300.0
-    y: 500.0
-  }
-  type: TYPE_BOX
-  id: "stats"
-  parent: "root"
-  inherit_alpha: true
-}
-nodes {
   position {
-    y: 183.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  color {
-    y: 0.0
-    z: 0.0
-  }
-  type: TYPE_TEXT
-  text: "Health :90"
-  font: "druid_text_regular"
-  id: "health"
-  parent: "stats"
-  inherit_alpha: true
-  outline_alpha: 0.0
-  shadow_alpha: 0.0
-}
-nodes {
-  position {
-    y: 84.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  color {
-    x: 0.0
-    y: 0.0
-  }
-  type: TYPE_TEXT
-  text: "Damage: 15"
-  font: "druid_text_regular"
-  id: "damage"
-  parent: "stats"
-  inherit_alpha: true
-  outline_alpha: 0.0
-  shadow_alpha: 0.0
-}
-nodes {
-  position {
-    y: -14.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  color {
-    x: 0.0
-    z: 0.0
-  }
-  type: TYPE_TEXT
-  text: "modules: 3"
-  font: "druid_text_regular"
-  id: "modules"
-  parent: "stats"
-  inherit_alpha: true
-  outline_alpha: 0.0
-  shadow_alpha: 0.0
-}
-nodes {
-  position {
-    x: 731.0
-    y: 473.0
+    x: 421.0
+    y: -149.0
   }
   type: TYPE_TEMPLATE
   id: "image_button"
+  parent: "tab2"
   inherit_alpha: true
   template: "/gui/widgets/buttons/image_button/image_button.gui"
 }
@@ -381,166 +488,6 @@ nodes {
   id: "image_button/border"
   parent: "image_button/root"
   overridden_fields: 4
-  template_node_child: true
-}
-nodes {
-  position {
-    x: 1185.0
-    y: 530.0
-  }
-  type: TYPE_TEMPLATE
-  id: "text_button_1"
-  inherit_alpha: true
-  template: "/gui/widgets/buttons/text_button/text_button.gui"
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_1/root"
-  parent: "text_button_1"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_1/background"
-  parent: "text_button_1/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_1/border"
-  parent: "text_button_1/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_TEXT
-  id: "text_button_1/label"
-  parent: "text_button_1/root"
-  template_node_child: true
-}
-nodes {
-  position {
-    x: 1421.0
-    y: 530.0
-  }
-  type: TYPE_TEMPLATE
-  id: "text_button_2"
-  inherit_alpha: true
-  template: "/gui/widgets/buttons/text_button/text_button.gui"
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_2/root"
-  parent: "text_button_2"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_2/background"
-  parent: "text_button_2/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "text_button_2/border"
-  parent: "text_button_2/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_TEXT
-  id: "text_button_2/label"
-  parent: "text_button_2/root"
-  template_node_child: true
-}
-nodes {
-  position {
-    x: 351.0
-    y: 182.0
-  }
-  type: TYPE_TEMPLATE
-  id: "property_checkbox_1"
-  inherit_alpha: true
-  template: "/druid/widget/properties_panel/properties/property_checkbox.gui"
-}
-nodes {
-  type: TYPE_BOX
-  id: "property_checkbox_1/root"
-  parent: "property_checkbox_1"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_TEXT
-  id: "property_checkbox_1/text_name"
-  parent: "property_checkbox_1/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "property_checkbox_1/E_Anchor"
-  parent: "property_checkbox_1/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "property_checkbox_1/button"
-  parent: "property_checkbox_1/E_Anchor"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "property_checkbox_1/icon"
-  parent: "property_checkbox_1/button"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "property_checkbox_1/selected"
-  parent: "property_checkbox_1/button"
-  template_node_child: true
-}
-nodes {
-  position {
-    x: 351.0
-    y: 236.0
-  }
-  type: TYPE_TEMPLATE
-  id: "property_checkbox_2"
-  inherit_alpha: true
-  template: "/druid/widget/properties_panel/properties/property_checkbox.gui"
-}
-nodes {
-  type: TYPE_BOX
-  id: "property_checkbox_2/root"
-  parent: "property_checkbox_2"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_TEXT
-  id: "property_checkbox_2/text_name"
-  parent: "property_checkbox_2/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "property_checkbox_2/E_Anchor"
-  parent: "property_checkbox_2/root"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "property_checkbox_2/button"
-  parent: "property_checkbox_2/E_Anchor"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "property_checkbox_2/icon"
-  parent: "property_checkbox_2/button"
-  template_node_child: true
-}
-nodes {
-  type: TYPE_BOX
-  id: "property_checkbox_2/selected"
-  parent: "property_checkbox_2/button"
   template_node_child: true
 }
 material: "/builtins/materials/gui.material"

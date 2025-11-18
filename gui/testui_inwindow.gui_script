@@ -20,11 +20,16 @@ function init(self)
     self.check_1 = self.druid:new_widget(checkbox, "property_checkbox_1")
     self.check_1 = self.druid:new_widget(checkbox, "property_checkbox_2")
    -- radio:new({self.check_1,self.check_2})
+    self.window:add_tab("tab1", "tab1", 2)
+    self.window:add_tab("tab2", "tab2", 1)
 
-    self.window.close.on_click:subscribe(function()
+    self.window:set_enabled_tab(2)
+
+    self.window.on_close:subscribe(function()
         print("closing - monarch will handle this")
     end)
 end
+
 
 function final(self)
     self.druid:final()
