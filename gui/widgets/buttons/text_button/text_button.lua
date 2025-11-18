@@ -13,6 +13,7 @@ local M = {}
 function M:init()
 	self.hover = self.druid:new_hover("root", self.on_hover, self.on_hover_mouse)
 	self.button = self.druid:new_button("root", self.on_button)
+	self.label = self.druid:new_text("label", "<text>")
 	self.button:set_animations_disabled()
 	self.animation = panthera.create_gui(animation,self:get_template())
 	self:set_state(false)
@@ -61,6 +62,10 @@ end
 ---@return boolean
 function M:get_state()
 	return self.is_enabled
+end
+
+function M:set_text(text)
+	self.label:set_text(text)
 end
 
 return M
