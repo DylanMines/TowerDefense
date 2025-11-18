@@ -17,10 +17,12 @@ function M:init()
 	self.screen_group = radio.new(self.screen_selections, 1)
 end
 
+---@return nil
 function M:on_button()
 	print("Root node", self.root)
 end
 
+---@return nil
 function M:set_title(title)
     self.title:set_text(title)
 end
