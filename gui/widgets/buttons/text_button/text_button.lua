@@ -7,7 +7,7 @@ local panthera = require("panthera.panthera")
 local animation = require("gui.widgets.buttons.text_button.text_button_panthera")
 local event = require("event.event")
 
----@class widget.text_button: druid.widget
+---@class widget.text_button: widget.radio_widget
 ---@field is_enabled boolean
 local M = {}
 
@@ -53,8 +53,8 @@ function M:set_state(new_state)
 	end
 end
 
-function M:get_state()
+--[[function M:get_state()
 	return self.is_enabled
-end
+end]]
 
 return M
