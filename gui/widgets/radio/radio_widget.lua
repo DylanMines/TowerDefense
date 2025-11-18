@@ -4,4 +4,5 @@
 ---@field on_state_changed event The event to subscribe to for state changes
 ---@field set_state function Set the state of the radio widget
 ---@field get_state function Get the state of the radio widget
+---@field private is_enabled boolean
 local radio_widget = {}

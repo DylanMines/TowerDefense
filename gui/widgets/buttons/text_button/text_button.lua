@@ -8,7 +8,6 @@ local animation = require("gui.widgets.buttons.text_button.text_button_panthera"
 local event = require("event.event")
 
 ---@class widget.text_button: widget.radio_widget
----@field is_enabled boolean
 local M = {}
 
 function M:init()
@@ -27,6 +26,9 @@ function M:on_hover(is_hover, hover_instance)
 	
 end
 
+---@param is_hover boolean 
+---@param hover_instance any 
+---@return nil
 function M:on_hover_mouse(is_hover, hover_instance)
 	if (self.is_enabled) then return end
 	if (is_hover) then
@@ -36,12 +38,15 @@ function M:on_hover_mouse(is_hover, hover_instance)
 	end
 end
 
+---@return nil
 function M:on_button()
 	if (self.is_enabled) then return end
 	self:set_state(not self.is_enabled)
 	self.on_state_changed:trigger(self.is_enabled)
 end
 
+---@param new_state boolean
+---@return nil
 function M:set_state(new_state)
 	if (new_state == self.is_enabled) then return end
 
@@ -53,8 +58,9 @@ function M:set_state(new_state)
 	end
 end
 
---[[function M:get_state()
+---@return boolean
+function M:get_state()
 	return self.is_enabled
-end]]
+end
 
 return M
