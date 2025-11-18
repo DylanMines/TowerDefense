@@ -104,6 +104,96 @@ nodes {
   template_node_child: true
 }
 nodes {
+  type: TYPE_TEMPLATE
+  id: "standard_window/screen1"
+  parent: "standard_window/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen1/root"
+  parent: "standard_window/screen1"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen1/background"
+  parent: "standard_window/screen1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen1/border"
+  parent: "standard_window/screen1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "standard_window/screen1/label"
+  parent: "standard_window/screen1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEMPLATE
+  id: "standard_window/screen2"
+  parent: "standard_window/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen2/root"
+  parent: "standard_window/screen2"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen2/background"
+  parent: "standard_window/screen2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen2/border"
+  parent: "standard_window/screen2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "standard_window/screen2/label"
+  parent: "standard_window/screen2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEMPLATE
+  id: "standard_window/screen3"
+  parent: "standard_window/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen3/root"
+  parent: "standard_window/screen3"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen3/background"
+  parent: "standard_window/screen3/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen3/border"
+  parent: "standard_window/screen3/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "standard_window/screen3/label"
+  parent: "standard_window/screen3/root"
+  template_node_child: true
+}
+nodes {
   position {
     x: 960.0
     y: 540.0

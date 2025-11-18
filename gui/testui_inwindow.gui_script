@@ -15,11 +15,11 @@ function init(self)
     self.image_button = self.druid:new_widget(image_button, "image_button")
     self.text_button_1 = self.druid:new_widget(text_button, "text_button_1")
     self.text_button_2 = self.druid:new_widget(text_button, "text_button_2")
-    radio:new({self.text_button_1,self.text_button_2})
+    local text_group = radio.new({self.text_button_1,self.text_button_2})
 
     self.check_1 = self.druid:new_widget(checkbox, "property_checkbox_1")
     self.check_1 = self.druid:new_widget(checkbox, "property_checkbox_2")
-    radio:new({self.check_1,self.check_2})
+   -- radio:new({self.check_1,self.check_2})
 
     self.window.close.on_click:subscribe(function()
         print("closing - monarch will handle this")
