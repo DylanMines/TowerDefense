@@ -1,5 +1,5 @@
 [bootstrap]
-main_collection = /gui/testui.collectionc
+main_collection = /main/main.collectionc
 render = /Render/Render.renderc
 
 [script]
@@ -20,6 +20,7 @@ dependencies#2 = https://github.com/britzl/monarch/archive/master.zip
 dependencies#3 = https://github.com/Insality/defold-event/archive/refs/tags/12.zip
 dependencies#4 = https://github.com/Insality/defold-tweener/archive/refs/tags/5.zip
 dependencies#5 = https://github.com/Insality/panthera/archive/refs/tags/runtime.5.zip
+dependencies#6 = https://github.com/britzl/defold-orthographic/archive/master.zip
 
 [sprite]
 max_count = 1024
