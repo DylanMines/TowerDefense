@@ -1,7 +1,10 @@
+--Libraries
+local camera = require("orthographic.camera")
+
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	msg.post(".","acquire_input_focus")
+	self.id = 0
+	self.place_debounce = true
 end
 
 function final(self)
@@ -16,31 +19,31 @@ function update(self, dt)
 	-- Remove this function if not needed
 end
 
-function fixed_update(self, dt)
-	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
-	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
-	-- Physics section of game.project
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Learn more: https://defold.com/manuals/message-passing/
-	-- Remove this function if not needed
+	if message_id == hash("set_id") then
+		self.id = message.id
+    end
 end
 
 function on_input(self, action_id, action)
-	-- Add input-handling code here. The game object this script is attached to
-	-- must have acquired input focus:
-	--
-	--    msg.post(".", "acquire_input_focus")
-	--
-	-- All mapped input bindings will be received. Mouse and touch input will
-	-- be received regardless of where on the screen it happened.
-	-- Learn more: https://defold.com/manuals/input/
-	-- Remove this function if not needed
+	if (action_id == hash("mouse_button_1") and action.pressed) then
+		if (self.place_debounce == true) then self.place_debounce = false return end
+		local mouse_pos = camera.screen_to_world(nil, vmath.vector3(action.x,action.y,0))
+		local object_pos = go.get_position()
+		local dist = math.sqrt(math.pow(object_pos.x - mouse_pos.x,2) + math.pow(object_pos.y - mouse_pos.y,2))
+		if (dist < 40) then
+			msg.post("gui#tower_gui", "show")
+		end
+	elseif (action_id == nil) then
+		local mouse_pos = camera.screen_to_world(nil, vmath.vector3(action.x,action.y,0))
+		local object_pos = go.get_position()
+		local dist = math.sqrt(math.pow(object_pos.x - mouse_pos.x,2) + math.pow(object_pos.y - mouse_pos.y,2))
+		if (dist < 40) then
+			msg.post("range#range", "enable")
+		else
+			msg.post("range#range", "disable")
+		end
+    end
 end
 
 function on_reload(self)

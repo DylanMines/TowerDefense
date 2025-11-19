@@ -6,11 +6,15 @@ instances {
 instances {
   id: "camera"
   prototype: "/orthographic/camera.go"
+  position {
+    x: 960.0
+    y: 540.0
+  }
   component_properties {
     id: "script"
     properties {
       id: "automatic_zoom"
-      value: "false"
+      value: "true"
       type: PROPERTY_TYPE_BOOLEAN
     }
   }

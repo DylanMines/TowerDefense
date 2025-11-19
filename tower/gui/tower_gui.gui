@@ -18,6 +18,7 @@ nodes {
   }
   type: TYPE_BOX
   id: "root"
+  xanchor: XANCHOR_RIGHT
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
   visible: false
