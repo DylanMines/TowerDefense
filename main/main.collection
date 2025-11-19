@@ -3,6 +3,18 @@ instances {
   id: "BuildingOutline"
   prototype: "/tower/tower.go"
 }
+instances {
+  id: "camera"
+  prototype: "/orthographic/camera.go"
+  component_properties {
+    id: "script"
+    properties {
+      id: "automatic_zoom"
+      value: "false"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "map"
@@ -102,12 +114,4 @@ embedded_instances {
     x: 0.9
     y: 0.9
   }
-}
-embedded_instances {
-  id: "towerui_test"
-  data: "components {\n"
-  "  id: \"tower_gui\"\n"
-  "  component: \"/tower/gui/tower_gui.gui\"\n"
-  "}\n"
-  ""
 }
