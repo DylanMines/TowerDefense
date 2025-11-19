@@ -1,3 +1,4 @@
+script: "/tower/gui/tower_gui.gui_script"
 fonts {
   name: "druid_text_regular"
   font: "/druid/fonts/druid_text_regular.font"
@@ -20,79 +21,6 @@ nodes {
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
   visible: false
-}
-nodes {
-  size {
-    x: 300.0
-    y: 500.0
-  }
-  type: TYPE_BOX
-  id: "stats"
-  parent: "root"
-  inherit_alpha: true
-}
-nodes {
-  position {
-    y: 183.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  color {
-    y: 0.0
-    z: 0.0
-  }
-  type: TYPE_TEXT
-  text: "Health :90"
-  font: "druid_text_regular"
-  id: "health"
-  parent: "stats"
-  inherit_alpha: true
-  outline_alpha: 0.0
-  shadow_alpha: 0.0
-}
-nodes {
-  position {
-    y: 84.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  color {
-    x: 0.0
-    y: 0.0
-  }
-  type: TYPE_TEXT
-  text: "Damage: 15"
-  font: "druid_text_regular"
-  id: "damage"
-  parent: "stats"
-  inherit_alpha: true
-  outline_alpha: 0.0
-  shadow_alpha: 0.0
-}
-nodes {
-  position {
-    y: -14.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  color {
-    x: 0.0
-    z: 0.0
-  }
-  type: TYPE_TEXT
-  text: "modules: 3"
-  font: "druid_text_regular"
-  id: "modules"
-  parent: "stats"
-  inherit_alpha: true
-  outline_alpha: 0.0
-  shadow_alpha: 0.0
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT
