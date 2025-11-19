@@ -225,6 +225,7 @@ nodes {
   parent: "root"
   inherit_alpha: true
   template: "/gui/widgets/buttons/text_button/text_button.gui"
+  enabled: false
 }
 nodes {
   size {
@@ -283,6 +284,7 @@ nodes {
   parent: "root"
   inherit_alpha: true
   template: "/gui/widgets/buttons/text_button/text_button.gui"
+  enabled: false
 }
 nodes {
   size {
@@ -341,6 +343,7 @@ nodes {
   parent: "root"
   inherit_alpha: true
   template: "/gui/widgets/buttons/text_button/text_button.gui"
+  enabled: false
 }
 nodes {
   size {

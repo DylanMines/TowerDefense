@@ -22,5 +22,261 @@ nodes {
   size_mode: SIZE_MODE_AUTO
   visible: false
 }
+nodes {
+  position {
+    x: 160.0
+  }
+  type: TYPE_TEMPLATE
+  id: "standard_window"
+  parent: "root"
+  inherit_alpha: true
+  template: "/gui/widgets/window/standard_window.gui"
+}
+nodes {
+  size {
+    x: 1600.0
+    y: 1080.0
+  }
+  type: TYPE_BOX
+  id: "standard_window/root"
+  parent: "standard_window"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 1590.0
+    y: 1070.0
+  }
+  type: TYPE_BOX
+  id: "standard_window/background"
+  parent: "standard_window/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 1600.0
+    y: 1080.0
+  }
+  type: TYPE_BOX
+  id: "standard_window/border_main"
+  parent: "standard_window/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  size {
+    x: 1600.0
+    y: 96.0
+  }
+  type: TYPE_BOX
+  id: "standard_window/border_top"
+  parent: "standard_window/root"
+  overridden_fields: 4
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 752.0
+  }
+  type: TYPE_BOX
+  id: "standard_window/border_side"
+  parent: "standard_window/root"
+  overridden_fields: 1
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 752.0
+    y: 492.0
+  }
+  type: TYPE_TEMPLATE
+  id: "standard_window/close"
+  parent: "standard_window/root"
+  overridden_fields: 1
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/close/root"
+  parent: "standard_window/close"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/close/background"
+  parent: "standard_window/close/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/close/image"
+  parent: "standard_window/close/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/close/content"
+  parent: "standard_window/close/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "standard_window/close/content_text"
+  parent: "standard_window/close/content"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/close/label_image"
+  parent: "standard_window/close/content"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "standard_window/close/label_test"
+  parent: "standard_window/close/label_image"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/close/border"
+  parent: "standard_window/close/root"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: -599.0
+    y: 492.0
+  }
+  type: TYPE_TEXT
+  id: "standard_window/title"
+  parent: "standard_window/root"
+  overridden_fields: 1
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 550.0
+    y: 492.0
+  }
+  type: TYPE_TEMPLATE
+  id: "standard_window/screen1"
+  parent: "standard_window/root"
+  overridden_fields: 1
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen1/root"
+  parent: "standard_window/screen1"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen1/background"
+  parent: "standard_window/screen1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen1/border"
+  parent: "standard_window/screen1/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "standard_window/screen1/label"
+  parent: "standard_window/screen1/root"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: 260.0
+    y: 492.0
+  }
+  type: TYPE_TEMPLATE
+  id: "standard_window/screen2"
+  parent: "standard_window/root"
+  overridden_fields: 1
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen2/root"
+  parent: "standard_window/screen2"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen2/background"
+  parent: "standard_window/screen2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen2/border"
+  parent: "standard_window/screen2/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "standard_window/screen2/label"
+  parent: "standard_window/screen2/root"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: -30.0
+    y: 492.0
+  }
+  type: TYPE_TEMPLATE
+  id: "standard_window/screen3"
+  parent: "standard_window/root"
+  overridden_fields: 1
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen3/root"
+  parent: "standard_window/screen3"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen3/background"
+  parent: "standard_window/screen3/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_BOX
+  id: "standard_window/screen3/border"
+  parent: "standard_window/screen3/root"
+  template_node_child: true
+}
+nodes {
+  type: TYPE_TEXT
+  id: "standard_window/screen3/label"
+  parent: "standard_window/screen3/root"
+  template_node_child: true
+}
+nodes {
+  position {
+    x: -635.0
+    y: -535.0
+  }
+  size {
+    x: 1504.0
+    y: 984.0
+  }
+  type: TYPE_BOX
+  id: "tower_menu"
+  pivot: PIVOT_SW
+  adjust_mode: ADJUST_MODE_STRETCH
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT
