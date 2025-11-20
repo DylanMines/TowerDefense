@@ -1,5 +1,7 @@
 --libraries
 local druid = require("druid.druid")
+local camera = require("orthographic.camera")
+local tower_shared = require("tower.tower_shared")
 
 --UI widgets
 local window = require("gui.widgets.window.standard_window")
@@ -15,7 +17,9 @@ function init(self)
     self.window:set_title("Space Station Control")
     self.window.on_close:subscribe(function ()
         gui.set_enabled(self.root, false)
-        self.enabled = false
+        self.enabled = false       
+        camera.follow(nil, "/camera_follow", {lerp = 0.1, vertical = false})
+        tower_shared.set_enabled(false)
     end)
 end
 
@@ -33,6 +37,9 @@ function on_message(self, message_id, message, sender)
         if self.enabled then return end
         gui.set_enabled(self.root, true)
         self.enabled = true
+        local url = msg.url(nil,msg.url(".").path,"tower")
+        camera.follow(nil, url, {horizontal = true, vertical = false, lerp = 0.1, offset = vmath.vector3(800,0,0)})
+        tower_shared.set_enabled(true)
     end
 end
 

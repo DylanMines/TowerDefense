@@ -35,3 +35,6 @@ max_count = 512
 [input]
 game_binding = /builtins/input/all.input_bindingc
 
+[collection]
+max_input_stack_entries = 32
+
