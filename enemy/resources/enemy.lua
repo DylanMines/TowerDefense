@@ -1,3 +1,6 @@
+--Libraries
+local camera = require("orthographic.camera")
+
 local pData = require("Path.path_data")
 local Enemy = {}
 local currentz = 0.24 --variable used to make sure enemies dont clip
@@ -144,6 +147,7 @@ function Enemy:final() --Enemy died
 	self.health = 0
 	local size = 80
 	local SM = size/5 --size multiplier
+	camera.shake(nil,0.003)
 	Enemy.enemies[self.go] = nil
 		go.delete(self.go)
 		particlefx.play(particle_url)
