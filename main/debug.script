@@ -1,4 +1,4 @@
-DEBUG_MODE = false --if set to true debug logs will be printed to console and fps will be displayed
+DEBUG_MODE = true --if set to true debug logs will be printed to console and fps will be displayed
 function init(self)
 	self.debounce = false
 
@@ -19,7 +19,7 @@ end
 
 function update(self, dt)
 	if DEBUG_MODE then
-		update_fps_counter()
+		update_fps_counter(self, dt)
 	end
 end
 
