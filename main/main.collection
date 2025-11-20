@@ -119,3 +119,11 @@ embedded_instances {
     y: 0.9
   }
 }
+embedded_instances {
+  id: "camera_follow"
+  data: "components {\n"
+  "  id: \"camera_object\"\n"
+  "  component: \"/camera/camera_object.script\"\n"
+  "}\n"
+  ""
+}
